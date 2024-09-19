@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+
+html {
+    font-family: "SUSE", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(43, 3, 35) 56%, rgb(189, 6, 119) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+    margin-bottom: 40px;
+    width: 85vw;
+    border-radius: 15px;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+#content {
+  display: grid;
+  justify-content: center;
+  gap: 49px;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: auto auto auto;
+}
+
+.row {
+    display: flex;
+    gap: 58px;
+}
+
+#content iframe {
+    border-radius: 15px;
+    -webkit-box-shadow: 5px 5px 15px 5px #000000;
+    box-shadow: 5px 5px 15px 5px #000000;
+    width: 25vw;
+    height: 28vh;
+}
+
+.search-container {
+    background-color: #535353;
+    height: 30px;
+    border-radius: 30px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 76px;
+    width: 42vw;
+}
+
+.search-container:hover>.search-input {
+    width: 100%;
+}
+
+.search-container .search-input {
+    color: white;
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 0px;
+    font-weight: 500;
+    font-size: 21px;
+}
