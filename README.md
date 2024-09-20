@@ -12,7 +12,7 @@ HTML5
 Postgres (base de données)
 ExpressJS (back-end)
 
-Bibliothèques : 
+Libraries : 
 npm install express body-parser pg
 
 News : https://github.com/EtriZe/SpycySite/blob/main/News.md
