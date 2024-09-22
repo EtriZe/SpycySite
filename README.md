@@ -1,4 +1,4 @@
-[Check the latest news][([News.md])
+[Check the latest news]https://github.com/EtriZe/SpycySite/blob/main/News.md
 
 # SpycySite
 A web site for TooSpycy on Twitch
