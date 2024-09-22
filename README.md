@@ -1,3 +1,5 @@
+[Check the latest news]([news.md](https://github.com/EtriZe/SpycySite/blob/main/News.md))
+
 # SpycySite
 A web site for TooSpycy on Twitch
 
@@ -14,5 +16,3 @@ ExpressJS (back-end)
 
 Libraries : 
 npm install express body-parser pg
-
-News : https://github.com/EtriZe/SpycySite/blob/main/News.md
