@@ -6,23 +6,59 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="js/musiquesHandler.js"></script>
+    <script type="text/javascript" src="js/contentHandler.js"></script>
+    <script type="text/javascript" src="js/tools.js"></script>
     <title> TooSpycySite </title>
 </head>
 
 <body>
     <div class="topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="#">Musiques</a>
-        <a href="#">Galerie</a>
-        <a href="#">Collection</a>
-    </div> 
-
-    <div class="search-container">
-        <input type="text" name="search" placeholder="Search..." class="search-input">
+        <button class="active" id="home">Home</button>
+        <button id="musicMenu">Musiques</button>
+        <div class="sousMenu">
+            <button id="musicProposal">Propositions</button>
+            <button id="musicGalerie">Galerie</button>
+        </div>
+        <button>Galerie</button>
+        <button>Collection</button>
     </div>
 
-    <div id="content">
 
+    
+    <div class="mainScreen">
+        <!-- Home by default -->
+        <h1 style="color:white">Bienvenue sur le site de TooSpycy</h1>
     </div>
 </body>
+<script>
+
+    document.getElementById('musicMenu').addEventListener('click', function (e) {
+        e.preventDefault(); // Empêche l'action par défaut du lien
+        var sousMenu = document.querySelector('.sousMenu');
+
+        sousMenu.style.display = sousMenu.style.display === "none" ||
+            sousMenu.style.display === ""
+            ? "block" : "none";
+        sousMenu.classList.toggle('show');
+    });
+
+    
+    const mainContentDiv = document.getElementsByClassName("mainScreen")[0];
+
+    
+    //Musics galerie
+    document.getElementById('musicGalerie').addEventListener('click', function (e) {
+        e.preventDefault(); // Empêche l'action par défaut du lien
+        setNewHTML("html/musicsGalerie.html", mainContentDiv);
+        getMusicGalerie();
+    });
+
+    //Home
+    document.getElementById('home').addEventListener('click', function (e) {
+        e.preventDefault(); // Empêche l'action par défaut du lien
+        setNewHTML("html/home.html", mainContentDiv);
+    });
+
+</script>
+
 </html>

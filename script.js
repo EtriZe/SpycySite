@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 
 // Route handler for GET student data 
-app.get('/Musiques', (req, res) => { 
+app.get('/musicsGalerie', (req, res) => { 
         const query = 'SELECT * FROM musics;';
         pool.query(query, (error, result) => { 
             if (error) { 
@@ -41,6 +41,10 @@ app.get('/Musiques', (req, res) => {
         });
     }
 );
+
+app.get("/Home", (req,res) => {
+    console.log("Bonjour : ", req , res);
+});
 
 // Listening to Requests 
 app.listen(port, () => { 
