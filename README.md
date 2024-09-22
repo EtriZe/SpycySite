@@ -1,4 +1,4 @@
-[Consulter les dernières nouvelles](news.md)
+[Check the latest news](News.md)
 
 # SpycySite
 A web site for TooSpycy on Twitch
