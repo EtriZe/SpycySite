@@ -30,16 +30,16 @@ btnProposer.addEventListener("click", (event) => {
 });
 
 function btnProposerSuccess() {
-    // To disable:    
-    btnProposer.getElementById('id').style.pointerEvents = 'none';
+    // // To disable:    
+    // btnProposer.getElementById('id').style.pointerEvents = 'none';
 
-    //Change design to show success
+    // //Change design to show success
 
-    //delay 2 secs
-    setTimeout(function() {
-        //your code to be executed after 1 second
-        // To re-enable:
-        btnProposer.getElementById('id').style.pointerEvents = 'auto';
-    }, 2000);
+    // //delay 2 secs
+    // setTimeout(function() {
+    //     //your code to be executed after 1 second
+    //     // To re-enable:
+    //     btnProposer.getElementById('id').style.pointerEvents = 'auto';
+    // }, 2000);
    
 }
