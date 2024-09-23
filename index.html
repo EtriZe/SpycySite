@@ -24,7 +24,7 @@
     </div>
 
 
-    
+
     <div class="mainScreen">
         <!-- Home by default -->
         <h1 style="color:white">Bienvenue sur le site de TooSpycy</h1>
@@ -42,10 +42,10 @@
         sousMenu.classList.toggle('show');
     });
 
-    
+
     const mainContentDiv = document.getElementsByClassName("mainScreen")[0];
 
-    
+
     //Musics galerie
     document.getElementById('musicGalerie').addEventListener('click', function (e) {
         e.preventDefault(); // Empêche l'action par défaut du lien
@@ -53,11 +53,24 @@
         getMusicGalerie();
     });
 
+    //Musics proposal
+    document.getElementById('musicProposal').addEventListener('click', function (e) {
+        e.preventDefault(); // Empêche l'action par défaut du lien
+        setNewHTML("html/musicsProposal.html", mainContentDiv);
+        loadJS("js/musicsProposal.js", true);
+    });
+
     //Home
     document.getElementById('home').addEventListener('click', function (e) {
         e.preventDefault(); // Empêche l'action par défaut du lien
         setNewHTML("html/home.html", mainContentDiv);
     });
+
+
+
+
+
+
 
 </script>
 

@@ -42,6 +42,36 @@ app.get('/musicsGalerie', (req, res) => {
     }
 );
 
+app.use(express.json());
+
+// Route handler for POST to add new music
+app.post('/insertNewMusic', (req, res) => {
+    // Récupérer les données du corps de la requête
+    const { url } = req.body;
+
+    // Vérifier si les champs requis sont présents
+    if (!url) {
+        return res.status(400).send('Field URL is required.');
+    }
+
+    // Créer la requête SQL d'insertion
+    // const query = "INSERT INTO musics VALUES ('EtriZe',$1)";
+    const query = "INSERT INTO musics(twitchName, url) VALUES('EtriZe',$1);";
+
+    // Exécuter la requête avec les valeurs fournies
+    pool.query(query, [url], (error, result) => {
+        if (error) {
+            console.error('Error occurred:', error);
+            return res.status(500).send('An error occurred while inserting data into the database.');
+        }
+
+        // Envoyer les données insérées en réponse
+        const newMusic = result.rows[0];
+        res.status(201).json(newMusic); // 201 = Created
+    });
+});
+
+
 app.get("/Home", (req,res) => {
     console.log("Bonjour : ", req , res);
 });
