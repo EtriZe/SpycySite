@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const app = express(); // Connect and Create an Express Application 
 const port = 3000; // By default, its 3000, you can customize
 
+var user_connected = false;
 // Create a Postgres Connection 
 const pool = new Pool({ 
     user: 'postgres', 

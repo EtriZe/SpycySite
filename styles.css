@@ -180,3 +180,21 @@ button, input[type="submit"], input[type="reset"] {
     margin: 0;
     height: 4vh;
 }
+
+#twitchConnected{
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-bottom-left-radius: 15px;
+    background-color: #333;
+    padding: 1vw;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    font-size: 1vw;
+}
+
+.twitchIcone{
+    width: 1.5vw;
+}

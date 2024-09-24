@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="js/tools.js"></script>
+    <script type="text/javascript" src="js/twitchConnexion.js"></script>
     <title> TooSpycySite </title>
 </head>
 
 <body>
+    <div id="twitchConnected">Not Connected</div>
+
     <div class="topnav">
         <button class="active" id="home">Home</button>
         <button id="musicMenu">Musiques</button>
@@ -38,6 +41,13 @@
             sousMenu.style.display === ""
             ? "block" : "none";
         sousMenu.classList.toggle('show');
+
+        //Remove all "active" class
+        document.querySelectorAll(".active").forEach(element=>{
+            element.classList.remove("active");
+        });
+
+        document.getElementById('musicMenu').classList.add("active");
     });
 
 
@@ -63,11 +73,6 @@
         e.preventDefault(); // Empêche l'action par défaut du lien
         setNewHTML("html/home.html", mainContentDiv);
     });
-
-
-
-
-
 
 
 </script>
