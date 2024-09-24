@@ -1,6 +1,7 @@
 25/09/2024 ----------------------------------------------------------------------------------------------------------------
 
 Amélioration visuelle du site, connexion twitch MAIS déplacer la connexion twitch sur script.js (côté serveur) pour plus de sécurité
+
 https://youtu.be/laEAKwuvbY0
 
 
