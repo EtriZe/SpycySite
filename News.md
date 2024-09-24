@@ -1,7 +1,7 @@
 25/09/2024 ----------------------------------------------------------------------------------------------------------------
 
 Amélioration visuelle du site, connexion twitch MAIS déplacer la connexion twitch sur script.js (côté serveur) pour plus de sécurité
-![2024-09-2500-39-36-ezgif com-resize](https://github.com/user-attachments/assets/f302926f-b2d6-4293-89e8-f1fa978437ec)
+![2024-09-25 00-39-36(1)](https://github.com/user-attachments/assets/f74a6554-ee38-453d-91af-bd04f8cf1f4a)
 
 
 24/09/2024 ----------------------------------------------------------------------------------------------------------------
