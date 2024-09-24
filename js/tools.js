@@ -1,39 +1,39 @@
-function setNewHTML(htmlFile, div){
+function setNewHTML(htmlFile, div) {
     fetch(htmlFile).then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur lors du chargement du fichier');
-            }
-            return response.text();
-        }).then(content => {
-            div.innerHTML = content;
-            return content;
-        })
+        if (!response.ok) {
+            throw new Error('Erreur lors du chargement du fichier');
+        }
+        return response.text();
+    }).then(content => {
+        div.innerHTML = content;
+        return content;
+    })
         .catch(error => {
             console.error('Erreur:', error);
             return false;
         });
 }
 
+var scriptEle = document.createElement("script");
+
 function loadJS(FILE_URL, async = true) {
-    let scriptEle = document.createElement("script");
-  
+    
     scriptEle.setAttribute("src", FILE_URL);
     scriptEle.setAttribute("type", "text/javascript");
     scriptEle.setAttribute("async", async);
-  
+
     document.body.appendChild(scriptEle);
-  
+
     // success event 
     scriptEle.addEventListener("load", () => {
-      console.log("File loaded")
+        console.log("File loaded")
     });
-     // error event
+    // error event
     scriptEle.addEventListener("error", (ev) => {
-      console.log("Error on loading file", ev);
+        console.log("Error on loading file", ev);
     });
-  }
+}
 
-  
 
 function convertToEmbeddedLink(youtubeUrl) {
     // Utilisation d'une expression régulière pour extraire l'ID de la vidéo YouTube
@@ -47,4 +47,3 @@ function convertToEmbeddedLink(youtubeUrl) {
         return ""; // Retourne null si l'ID de la vidéo n'est pas trouvé
     }
 }
-  

@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script type="text/javascript" src="js/musiquesHandler.js"></script>
     <script type="text/javascript" src="js/tools.js"></script>
     <title> TooSpycySite </title>
 </head>
@@ -49,7 +48,7 @@
     document.getElementById('musicGalerie').addEventListener('click', function (e) {
         e.preventDefault(); // Empêche l'action par défaut du lien
         setNewHTML("html/musicsGalerie.html", mainContentDiv);
-        getMusicGalerie();
+        loadJS("js/musicsGalerie.js", true);
     });
 
     //Musics proposal

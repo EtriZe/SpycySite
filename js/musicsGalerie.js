@@ -1,3 +1,5 @@
+getMusicGalerie();
+
 function getMusicGalerie() {
     fetch('/musicsGalerie').then(response => response.json()).then(data => {
         const urls = data.map(musiques => convertToEmbeddedLink(`${musiques.url}`));
