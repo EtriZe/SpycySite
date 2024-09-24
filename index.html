@@ -14,14 +14,26 @@
     <div id="twitchConnected">Not Connected</div>
 
     <div class="topnav">
-        <button class="active" id="home">Home</button>
-        <button id="musicMenu">Musiques</button>
-        <div class="sousMenu">
-            <button id="musicProposal">Propositions</button>
-            <button id="musicGalerie">Galerie</button>
+        <div>
+            <button class="active" id="home">Home</button>
         </div>
-        <button>Galerie</button>
-        <button>Collection</button>
+        <div>
+            <button id="musicMenu">Musiques</button>
+            <div class="sousMenu">
+                <button id="musicProposal">Propositions</button>
+                <button id="musicGalerie">Galerie</button>
+            </div>
+        </div>
+        <div>
+            <button>Galerie</button>
+            <div class="sousMenu">
+                <button id="artProposal">Propositions</button>
+                <button id="artGalerie">Galerie</button>
+            </div>
+        </div>
+        <div>
+            <button>Collection</button>
+        </div>
     </div>
 
 
@@ -32,22 +44,29 @@
     </div>
 </body>
 <script>
+    //Gestion Onglets
+    document.querySelectorAll("button").forEach(element => {
+        element.addEventListener('click', function (e) {
+            //Remove all "active" class
+            document.querySelectorAll(".active").forEach(element => {
+                element.classList.remove("active");
+            });
 
-    document.getElementById('musicMenu').addEventListener('click', function (e) {
-        e.preventDefault(); // Empêche l'action par défaut du lien
-        var sousMenu = document.querySelector('.sousMenu');
+            element.classList.add("active");
 
-        sousMenu.style.display = sousMenu.style.display === "none" ||
-            sousMenu.style.display === ""
-            ? "block" : "none";
-        sousMenu.classList.toggle('show');
+            //TODO - METTRE DANS UNE FONCTION
+            document.querySelectorAll(".sousMenu").forEach(sousmenu => {
+                sousmenu.style.display = "none";
+            });
 
-        //Remove all "active" class
-        document.querySelectorAll(".active").forEach(element=>{
-            element.classList.remove("active");
+
+            var sousMenu = element.parentNode.querySelector(".sousMenu");
+            //TODO - METTRE DANS UNE FONCTION
+            sousMenu.style.display = sousMenu.style.display === "none" ||
+                sousMenu.style.display === ""
+                ? "block" : "none";
+            sousMenu.classList.toggle('show');
         });
-
-        document.getElementById('musicMenu').classList.add("active");
     });
 
 
