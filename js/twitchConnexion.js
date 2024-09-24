@@ -1,4 +1,5 @@
 // ID de l'application récupéré après l'avoir enregistrée
+var USER_INFOS = "";
 const CLIENT_ID = "faqe2p602algzgvkqn28xer64wagug";
 var USER_ACCESS_TOKEN = "";
 // Adresse où l'on veut que l'utilisateur soit redirigé après avoir autorisé
@@ -8,7 +9,7 @@ const REDIRECT_URI = "http://localhost:3000/";
 
 // Liste des éléments auxquels on souhaite accéder...  On reparlera de ça un
 // peu plus tard ;)
-const SCOPES = [];
+const SCOPES = ["user_read"];
 
 // Diverses fonctions utilitaires
 const helpers = {
@@ -60,6 +61,7 @@ const twitch = {
             scope: SCOPES.join(" "),
         };
         const queryString = helpers.encodeQueryString(params);
+        
         const authenticationUrl = `https://id.twitch.tv/oauth2/authorize?${queryString}`;
         location.href = authenticationUrl;
     },
@@ -69,7 +71,6 @@ const twitch = {
 
 // Fonction principale
 function main() {
-
     // On lance l'authentification si l'utilisateur n'est pas authentifié
     if (!twitch.isAuthenticated()) {
         userNotConnected();
@@ -81,11 +82,10 @@ function main() {
 const TWITCH_ICONE = '<img class="twitchIcone" src="icones/twitch-icon.svg"/>';
 
 async function userConnected() {
-    const USER_INFOS = await getUserInfo();
+    USER_INFOS = await getUserInfo();
     const TWITCH_CONNECTED_DIV = document.getElementById("twitchConnected");
     TWITCH_CONNECTED_DIV.innerHTML = USER_INFOS.data[0].display_name + TWITCH_ICONE;
     TWITCH_CONNECTED_DIV.title = "You are connected !";
-    document.get
     user_connected = true;
 }
 
@@ -125,6 +125,7 @@ async function getUserInfo() {
     }
 }
 
-// On appelle la fonction main() lorsque la page a fini de charger
 
+
+// On appelle la fonction main() lorsque la page a fini de charger
 window.onload = main;

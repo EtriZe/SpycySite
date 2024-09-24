@@ -13,3 +13,8 @@ Design modifié mais clairement pas fini. Et logique de changement du contenu qu
 
 Onglet "propositions" fonctionnel. Permet de push l'url de musique que l'on met.
 Il faut désormais ajouté une sécurité : si c'est pas un lien youtube on exécute pas la requête.
+
+25/09/2024 ----------------------------------------------------------------------------------------------------------------
+
+Amélioration visuelle du site, connexion twitch MAIS déplacer la connexion twitch sur script.js (côté serveur) pour plus de sécurité
+

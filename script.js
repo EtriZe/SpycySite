@@ -3,6 +3,7 @@ const express = require('express');
 const { Pool } = require('pg'); 
 const path = require('path'); 
 const bodyParser = require('body-parser');
+const axios = require('axios');
 
 const app = express(); // Connect and Create an Express Application 
 const port = 3000; // By default, its 3000, you can customize
@@ -48,7 +49,7 @@ app.use(express.json());
 // Route handler for POST to add new music
 app.post('/insertNewMusic', (req, res) => {
     // Récupérer les données du corps de la requête
-    const { url } = req.body;
+    const { pseudo, url } = req.body;
 
     // Vérifier si les champs requis sont présents
     if (!url) {
@@ -57,15 +58,14 @@ app.post('/insertNewMusic', (req, res) => {
 
     // Créer la requête SQL d'insertion
     // const query = "INSERT INTO musics VALUES ('EtriZe',$1)";
-    const query = "INSERT INTO musics(twitchName, url) VALUES('EtriZe',$1);";
+    const query = "INSERT INTO musics(twitchName, url) VALUES($1,$2);";
 
     // Exécuter la requête avec les valeurs fournies
-    pool.query(query, [url], (error, result) => {
+    pool.query(query, [pseudo, url], (error, result) => {
         if (error) {
             console.error('Error occurred:', error);
             return res.status(500).send('An error occurred while inserting data into the database.');
         }
-
         // Envoyer les données insérées en réponse
         const newMusic = result.rows[0];
         res.status(201).json(newMusic); // 201 = Created
@@ -81,3 +81,18 @@ app.get("/Home", (req,res) => {
 app.listen(port, () => { 
     console.log(`Server listening on port ${port}`); 
 });
+
+async function validateToken(accessToken) {
+    try {
+        const response = await axios.get('https://id.twitch.tv/oauth2/validate', {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+        
+        return response.data; // Cela renverra les détails du token (client_id, user_id, etc.)
+    } catch (error) {
+        console.error('Token invalide:', error);
+        throw new Error('Token invalide');
+    }
+}

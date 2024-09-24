@@ -16,11 +16,12 @@ body {
     grid-template-columns: 20% auto;
     min-height: 100%;
     margin: 0;
+    overflow: hidden;
 }
 
 
 /* Add a black background color to the top navigation */
-.topnav {
+.leftnav {
     background-color: #333;
     overflow: hidden;
     border-radius: 0px;
@@ -34,26 +35,34 @@ body {
 }
 
 /* Style the links inside the navigation bar */
-.topnav button {
+.leftnav button {
     float: left;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
-    width:100%;
+    width: 100%;
+}
+
+.leftnav #home {
+    height: 17vh;
 }
 
 /* Change the color of links on hover */
-.topnav button:hover {
+.leftnav button:hover {
     background-color: #ddd;
     color: black;
 }
 
 /* Add a color to the active/current link */
-.topnav button.active {
+.leftnav button.active {
     background-color: rgb(87, 6, 124);
     color: white;
+}
+
+.leftnav button.active#home {
+    background-color: #333;
 }
 
 #content {
@@ -63,6 +72,9 @@ body {
     width: 100%;
     height: 100%;
     grid-template-columns: auto auto auto;
+    max-height: 81vh;
+    overflow: scroll;
+    padding-top: 2vh;
 }
 
 .row {
@@ -110,6 +122,7 @@ nordpass-passkeys {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 11vh;
 }
 
 .videoYoutube {
@@ -125,33 +138,40 @@ nordpass-passkeys {
     left: 50%;
     position: relative;
     display: none;
-    transform: translateY(100%); /* Cache la div en la déplaçant vers le haut */
+    transform: translateY(100%);
+    /* Cache la div en la déplaçant vers le haut */
     /* opacity: 0; */
     transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .sousMenu.show {
-    transform: translateY(0); /* Déplace la div à sa position d'origine */
-    opacity: 1; /* Rend la div visible */
+    transform: translateY(0);
+    /* Déplace la div à sa position d'origine */
+    opacity: 1;
+    /* Rend la div visible */
 }
 
-.sousMenu button{
+.sousMenu button {
     width: 100%;
     text-align: left;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
 }
 
-button, input[type="submit"], input[type="reset"] {
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+button,
+input[type="submit"],
+input[type="reset"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
 }
 
 
-#btnProposer{
+#btnProposer {
     color: white;
     background-color: #333;
     border-radius: 15px;
@@ -159,19 +179,19 @@ button, input[type="submit"], input[type="reset"] {
     padding: 13px;
 }
 
-#apercu{
+#apercu {
     margin-top: 8vh;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#apercu iframe{
+#apercu iframe {
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
 
-#apercu h3{
+#apercu h3 {
     color: #333;
     background: #ffffff;
     width: 20vw;
@@ -182,7 +202,7 @@ button, input[type="submit"], input[type="reset"] {
     height: 4vh;
 }
 
-#twitchConnected{
+#twitchConnected {
     position: absolute;
     right: 0;
     top: 0;
@@ -196,6 +216,17 @@ button, input[type="submit"], input[type="reset"] {
     font-size: 1vw;
 }
 
-.twitchIcone{
+.twitchIcone {
     width: 1.5vw;
+}
+
+.grosTitre {
+    position: absolute;
+    top: 0;
+    font-size: 2vw;
+    color: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #333;
+    padding: 1vh;
 }

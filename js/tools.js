@@ -1,4 +1,4 @@
-function setNewHTML(htmlFile, div) {
+function setNewHTML(htmlFile, div, loadFunction) {
     fetch(htmlFile).then(response => {
         if (!response.ok) {
             throw new Error('Erreur lors du chargement du fichier');
@@ -6,6 +6,7 @@ function setNewHTML(htmlFile, div) {
         return response.text();
     }).then(content => {
         div.innerHTML = content;
+        loadFunction();
         return content;
     })
         .catch(error => {
@@ -47,3 +48,20 @@ function convertToEmbeddedLink(youtubeUrl) {
         return ""; // Retourne null si l'ID de la vidéo n'est pas trouvé
     }
 }
+
+
+function closeAllTabs() {
+    document.querySelectorAll(".sousMenu").forEach(sousmenu => {
+        sousmenu.style.display = "none";
+    });
+}
+
+function openSousMenu(menu) {
+    var sousMenu = menu.parentNode.querySelector(".sousMenu");
+    if(sousMenu === null) return; // Pas de sous menu
+    sousMenu.style.display = sousMenu.style.display === "none" ||
+        sousMenu.style.display === ""
+        ? "block" : "none";
+    sousMenu.classList.toggle('show');
+}
+
