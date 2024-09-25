@@ -17,14 +17,18 @@ const pool = new Pool({
     password: 'admin', // Change to your password port: 5432, // Default Port 
 });
 
+
+
 app.use(
     express.static(path.join(''))
 );
 
 // Setup Route handler 
 app.get('/', (req, res) => { 
+    
     res.sendFile(
         path.join(__dirname, '', 'index.html')
+        
     ); 
 });
 
@@ -81,18 +85,3 @@ app.get("/Home", (req,res) => {
 app.listen(port, () => { 
     console.log(`Server listening on port ${port}`); 
 });
-
-async function validateToken(accessToken) {
-    try {
-        const response = await axios.get('https://id.twitch.tv/oauth2/validate', {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        });
-        
-        return response.data; // Cela renverra les détails du token (client_id, user_id, etc.)
-    } catch (error) {
-        console.error('Token invalide:', error);
-        throw new Error('Token invalide');
-    }
-}

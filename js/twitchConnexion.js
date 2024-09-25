@@ -126,6 +126,5 @@ async function getUserInfo() {
 }
 
 
-
 // On appelle la fonction main() lorsque la page a fini de charger
 window.onload = main;
