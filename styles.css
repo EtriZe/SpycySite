@@ -49,12 +49,6 @@ body {
     height: 27vh;
 }
 
-/* Change the color of links on hover */
-.leftnav button:hover {
-    background-color: #ddd;
-    color: black;
-}
-
 /* Add a color to the active/current link */
 .leftnav button.active {
     background-color: rgb(87, 6, 124);
@@ -79,6 +73,8 @@ body {
     max-height: 81vh;
     overflow: scroll;
     padding-top: 2vh;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 .row {
@@ -127,6 +123,7 @@ nordpass-passkeys {
     justify-content: center;
     align-items: center;
     padding-top: 11vh;
+    height: 84%;
 }
 
 .videoYoutube {
@@ -237,3 +234,12 @@ input[type="reset"] {
     padding: 1vh;
 }
 
+button:hover {
+    background-color: #ddd;
+    color: black !important;
+}
+
+#twitchConnected button{
+    text-decoration: none;
+    color: white;
+}
