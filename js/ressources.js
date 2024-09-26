@@ -28,8 +28,8 @@ function loadMusicProposal() {
 }
 
 //INSERT new song by youtube url
-function insertNewMusic(urlParameter){
-    if( ! user_connected) {
+function insertNewMusic(urlParameter) {
+    if (!user_connected) {
         console.log("User not connected !");
         return;
     }
@@ -57,22 +57,35 @@ function insertNewMusic(urlParameter){
 }
 
 
-function loadHome(){
+function loadHome() {
     console.log("Load Home");
 }
 
-function loadArtProposal(){
+function loadArtProposal() {
     console.log("Load Art Proposal");
 }
 
-function loadArtGalerie(){
+function loadArtGalerie() {
     console.log("Load Art Galerie");
 }
 
-function loadCardCollection(){
+function loadCardCollection() {
     console.log("Load Card Collection");
 }
 
-function btnProposerSuccess(){
+function btnProposerSuccess() {
 
+}
+
+const TWITCH_ICONE = '<img class="twitchIcone" src="icones/twitch-icon.svg"/>';
+
+function loadConnected() {
+    fetch('/userInfos').then(response => response.json()).then(data => {
+        USER_INFOS = data;
+        const TWITCH_CONNECTED_DIV = document.getElementById("twitchConnected");
+        TWITCH_CONNECTED_DIV.innerHTML = USER_INFOS.data[0].display_name + TWITCH_ICONE;
+        TWITCH_CONNECTED_DIV.title = "You are connected !";
+    }).catch(
+        error => console.error('Error occurred:', error)
+    );
 }

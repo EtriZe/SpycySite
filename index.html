@@ -6,17 +6,22 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="js/tools.js"></script>
-    <script type="text/javascript" src="js/twitchConnexion.js"></script>
+    <!-- <script type="text/javascript" src="js/twitchConnexion.js"></script> -->
     <script type="text/javascript" src="js/ressources.js"></script>
     <title> TooSpycySite </title>
 </head>
 
 <body>
-    <div id="twitchConnected">Not Connected</div>
+    <div id="twitchConnected">
+        <a href="/login">
+            <button>Login</button>
+        </a>
+    </div>
 
     <div class="leftnav">
         <div>
-            <button class="active" id="home"><img class="twitchIcone" src="icones/twitch-icon.svg" style="width:7vw"/></button>
+            <button class="active" id="home"><img class="twitchIcone" src="icones/twitch-icon.svg"
+                    style="width:7vw" /></button>
         </div>
         <div>
             <button>Musiques</button>
@@ -43,7 +48,7 @@
     </div>
 </body>
 <script>
-    
+    loadConnected();
     //Gestion Menus
     document.querySelectorAll("button").forEach(element => {
         element.addEventListener('click', function (e) {
@@ -53,7 +58,7 @@
             });
 
             element.classList.add("active");
-            if( ! element.parentNode.classList.contains("sousMenu")){
+            if (!element.parentNode.classList.contains("sousMenu")) {
                 closeAllTabs();
             }
             openSousMenu(element);
