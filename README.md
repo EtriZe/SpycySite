@@ -15,4 +15,4 @@ Postgres (base de données)
 ExpressJS (back-end)
 
 Libraries : 
-npm install express body-parser pg
+npm install express body-parser pg dotenv axios

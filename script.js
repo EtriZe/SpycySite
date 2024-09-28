@@ -5,15 +5,15 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 const app = express(); // Connect and Create an Express Application 
 const port = 3000; // By default, its 3000, you can customize
 var user_values = "";
 var user_connected = false;
 
 //TWITCH ------------------
-const CLIENT_ID = "0cqurfdhweix90jlix81jljg9sfh77";
-const REDIRECT_URI = "http://localhost:3000/callback";
-const CLIENT_SECRET = "79gh51ghdkcpl5rpzi10j7cba3pqfr";
 const SCOPES = ["user_read"];
 
 // Diverses fonctions utilitaires
@@ -52,16 +52,12 @@ const pool = new Pool({
     user: 'postgres', 
     host: 'localhost', 
     database: 'spycysite', 
-    password: 'admin', // Change to your password port: 5432, // Default Port 
+    password: 'admin',  
 });
-
-
 
 app.use(
     express.static(path.join(''))
 );
-
-
 
 // Setup Route handler 
 app.get('/', (req, res) => { 
@@ -71,11 +67,11 @@ app.get('/', (req, res) => {
 });
 
 
-
 app.get('/login', (req, res) => {
+    console.log("Coucou : ", process.env.TWITCH_CLIENT_ID);
     const params = {
-        client_id: CLIENT_ID,
-        redirect_uri: REDIRECT_URI,
+        client_id: process.env.TWITCH_CLIENT_ID,
+        redirect_uri: process.env.TWITCH_REDIRECT_URI,
         response_type: "code",
         scope: SCOPES.join(" "),
     };
@@ -106,11 +102,11 @@ app.get('/callback', async (req, res) => {
         // Requête POST pour échanger le code contre un token d'accès
         const response = await axios.post('https://id.twitch.tv/oauth2/token', null, {
             params: {
-                client_id: CLIENT_ID,
-                client_secret: CLIENT_SECRET,
+                client_id: process.env.TWITCH_CLIENT_ID,
+                client_secret: process.env.TWITCH_CLIENT_SECRET,
                 code: authorizationCode,
                 grant_type: 'authorization_code',
-                redirect_uri: REDIRECT_URI,
+                redirect_uri: process.env.TWITCH_REDIRECT_URI,
             },
         });
 
@@ -198,7 +194,7 @@ async function getUserInfo(user_access_token) {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${user_access_token}`,  // Ajouter le token dans les headers
-                'Client-Id': CLIENT_ID  // Remplace par ton client_id
+                'Client-Id': process.env.TWITCH_CLIENT_ID  // Remplace par ton client_id
             }
         });
 

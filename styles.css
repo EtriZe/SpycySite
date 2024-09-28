@@ -9,7 +9,7 @@ html {
 }
 
 body {
-    background: rgb(87, 6, 124);
+    background: rgb(123, 52, 99);
     /* background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(43, 3, 35) 56%, rgb(189, 6, 119) 100%); */
     align-items: center;
     display: grid;
@@ -51,9 +51,9 @@ body {
 
 /* Add a color to the active/current link */
 .leftnav button.active {
-    background-color: rgb(87, 6, 124);
+    background-color: rgb(123, 52, 99);
     color: white;
-    box-shadow: inset -20px 0 15px rgb(87, 6, 124), inset 7px 0px 13px #000000;
+    box-shadow: inset -20px 0 15px rgb(123, 52, 99), inset 7px 0px 13px #000000;
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
 }
