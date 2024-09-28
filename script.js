@@ -68,7 +68,6 @@ app.get('/', (req, res) => {
 
 
 app.get('/login', (req, res) => {
-    console.log("Coucou : ", process.env.TWITCH_CLIENT_ID);
     const params = {
         client_id: process.env.TWITCH_CLIENT_ID,
         redirect_uri: process.env.TWITCH_REDIRECT_URI,
