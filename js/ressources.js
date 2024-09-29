@@ -8,7 +8,6 @@ function loadMusicGalerie() {
         });
     }).catch(
         error => console.error('Error occurred:', error)
-
     );
 }
 
@@ -78,13 +77,14 @@ function btnProposerSuccess() {
 }
 
 const TWITCH_ICONE = '<img class="twitchIcone" src="icones/twitch-icon.svg"/>';
-
+//To know if user is connected
 function loadConnected() {
     fetch('/userInfos').then(response => response.json()).then(data => {
-        USER_INFOS = data;
-        const TWITCH_CONNECTED_DIV = document.getElementById("twitchConnected");
-        TWITCH_CONNECTED_DIV.innerHTML = USER_INFOS.data[0].display_name + TWITCH_ICONE;
-        TWITCH_CONNECTED_DIV.title = "You are connected !";
+        console.log("Is Connected ? ", data);
+        // USER_INFOS = data;
+        // const TWITCH_CONNECTED_DIV = document.getElementById("twitchConnected");
+        // TWITCH_CONNECTED_DIV.innerHTML = USER_INFOS.data[0].display_name + TWITCH_ICONE;
+        // TWITCH_CONNECTED_DIV.title = "You are connected !";
     }).catch(
         error => console.error('Error occurred:', error)
     );

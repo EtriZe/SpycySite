@@ -7,10 +7,12 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="js/tools.js"></script>
     <script type="text/javascript" src="js/ressources.js"></script>
+    <link rel="icon" href="icones/Loo_sans_fond.png">
     <title> TooSpycySite </title>
 </head>
 
 <body>
+    <div id="backgroundImage"></div>
     <div id="twitchConnected">
         <a href="/login">
             <button>Login</button>
@@ -19,8 +21,8 @@
 
     <div class="leftnav">
         <div>
-            <button class="active" id="home"><img class="twitchIcone" src="icones/twitch-icon.svg"
-                    style="width:7vw" /></button>
+            <button class="active" id="home"><img class="twitchIcone" src="icones/Loo_sans_fond.png"
+                    style="width: 11vw" /></button>
         </div>
         <div>
             <button>Musiques</button>
@@ -49,8 +51,6 @@
 <script>
 
     loadConnected();
-
-    
     //Gestion Menus
     document.querySelectorAll("button").forEach(element => {
         element.addEventListener('click', function (e) {

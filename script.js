@@ -1,25 +1,24 @@
 // Import required modules 
-const express = require('express'); 
-const { Pool } = require('pg'); 
-const path = require('path'); 
+const express = require('express');
+const { Pool } = require('pg');
+const path = require('path');
 const bodyParser = require('body-parser');
 const axios = require('axios');
-
+const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv");
+const cookieParser = require('cookie-parser');
 dotenv.config();
 
 const app = express(); // Connect and Create an Express Application 
 const port = 3000; // By default, its 3000, you can customize
-var user_values = "";
-var user_connected = false;
-
+var user_values = false;
+app.use(cookieParser());
 //TWITCH ------------------
 const SCOPES = ["user_read"];
 
 // Diverses fonctions utilitaires
 const helpers = {
     // Encode un objet sous forme d'une querystring utilisable dans une URL :
-    // {"name": "Truc Muche", "foo": "bar"}  ->  "name=Truc+Muche&foo=bar"
     encodeQueryString: function (params) {
         const queryString = new URLSearchParams();
         for (let paramName in params) {
@@ -48,22 +47,32 @@ const helpers = {
 
 
 // Create a Postgres Connection 
-const pool = new Pool({ 
-    user: 'postgres', 
-    host: 'localhost', 
-    database: 'spycysite', 
-    password: 'admin',  
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'spycysite',
+    password: 'admin',
 });
 
 app.use(
-    express.static(path.join(''))
+    express.static(path.join('/'))
 );
 
+app.get('/show-cookies', (req, res) => {
+    console.log('Cookies: ', req.cookies);  // Affiche tous les cookies non signés
+    console.log('Signed Cookies: ', req.signedCookies);  // Affiche les cookies signés si nécessaire
+
+    res.json({
+        cookies: req.cookies,
+        signedCookies: req.signedCookies
+    });
+});
+
 // Setup Route handler 
-app.get('/', (req, res) => { 
+app.get('/', validateJWT, (req, res) => {
     res.sendFile(
         path.join(__dirname, '', 'index.html')
-    ); 
+    );
 });
 
 
@@ -75,18 +84,17 @@ app.get('/login', (req, res) => {
         scope: SCOPES.join(" "),
     };
     const queryString = helpers.encodeQueryString(params);
-    
+
     const authenticationUrl = `https://id.twitch.tv/oauth2/authorize?${queryString}`;
-   
+
     res.redirect(authenticationUrl);
 });
 
 
-
-app.get('/userInfos', async (req, res) => {
-    res.send(user_values);
+app.get('/userInfos',validateJWT, async (req, res) => {
+    console.log("User connected :", req.isConnected);
+    res.send(req.isConnected);
 });
-
 
 
 // Endpoint de callback pour recevoir le "code" et échanger contre un access token
@@ -109,8 +117,25 @@ app.get('/callback', async (req, res) => {
             },
         });
 
-        const { access_token, refresh_token, expires_in } = response.data;
-        user_values = await getUserInfo(access_token);
+        const { access_token, expires_in } = response.data;
+        const USER_VALUES = await getUserInfo(access_token);
+
+        const userData = {
+            id: USER_VALUES.data[0].id,   // l'ID utilisateur Twitch
+            username: USER_VALUES.data[0].display_name,   // l'ID utilisateur Twitch
+            logoTwitch: USER_VALUES.data[0].profile_image_url,   // l'ID utilisateur Twitch
+            token: access_token, // Le token d'accès Twitch
+            exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+        };
+
+        const token = jwt.sign(userData, process.env.SECRET_JWT_KEY, { algorithm: 'HS256' });
+ 
+        res.cookie('auth_token', token, {
+            httpOnly: true,
+            secure: false, // TODO en release => true 
+            sameSite: 'Lax', // TODO en release => 'Strict'
+            maxAge: 24 * 60 * 60 * 1000  // 24 heures  
+        });
 
         //Redirection page principale
         res.redirect("/");
@@ -121,29 +146,48 @@ app.get('/callback', async (req, res) => {
     }
 });
 
+// Middleware pour valider le JWT
+async function validateJWT(req, res, next) {
+    const token = req.cookies.auth_token;
+    
+    if (!token) {
+        // console.log("Utilisateur jamais connecté");
+        req.isConnected = false;
+        return next();
+    }
 
+    try {
+        //JWT valide donc on vérifie si le token récupéré est valide
+        const decoded = jwt.verify(token, process.env.SECRET_JWT_KEY);
+        req.user = decoded;
+        const isConnected = await validateToken(decoded.token);
+        // console.log("Vous êtes bien connecté : ", isConnected);
+        req.isConnected = isConnected; 
+        return next();
+    } catch (err) {
+        req.isConnected = false;
+        res.clearCookie('auth_token');
+        // console.log("Le token est invalide ou expiré");
+        return next();
+    }
+}
 
 // Route handler for GET student data 
-app.get('/musicsGalerie', (req, res) => { 
-        const query = 'SELECT * FROM musics;';
-        pool.query(query, (error, result) => { 
-            if (error) { 
-                console.log('Error occurred:', error); 
-                res.status(500).send('An error occurred while retrieving data from the database.'); 
-            } else { 
-                const musics = result.rows; 
-                res.json(musics); 
-            } 
-        });
-    }
+app.get('/musicsGalerie', (req, res) => {
+    const query = 'SELECT * FROM musics;';
+    pool.query(query, (error, result) => {
+        if (error) {
+            console.log('Error occurred:', error);
+            res.status(500).send('An error occurred while retrieving data from the database.');
+        } else {
+            const musics = result.rows;
+            res.json(musics);
+        }
+    });
+}
 );
 
-
-
-app.use(express.json());
-
-
-
+app.use(express.static(__dirname + '/'));
 
 // Route handler for POST to add new music
 app.post('/insertNewMusic', (req, res) => {
@@ -171,18 +215,9 @@ app.post('/insertNewMusic', (req, res) => {
     });
 });
 
-
-
-
-app.get("/Home", (req,res) => {
-    console.log("Bonjour : ", req , res);
-});
-
-
-
 // Listening to Requests 
-app.listen(port, () => { 
-    console.log(`Server listening on port ${port}`); 
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
 });
 
 async function getUserInfo(user_access_token) {
@@ -208,5 +243,21 @@ async function getUserInfo(user_access_token) {
 
     } catch (error) {
         console.error('Erreur lors de la récupération des informations utilisateur :', error);
+    }
+}
+
+
+async function validateToken(user_access_token) {
+    try {
+        const response = await axios.get('https://id.twitch.tv/oauth2/validate', {
+            headers: {
+                'Authorization': `Bearer ${user_access_token}`,
+            },
+        });
+        //Token Valide
+        return await true;
+    } catch (error) {
+        console.error('Token invalide:', error);
+        return await false;
     }
 }
