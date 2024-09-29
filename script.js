@@ -91,10 +91,11 @@ app.get('/login', (req, res) => {
 });
 
 
-app.get('/userInfos',validateJWT, async (req, res) => {
-    console.log("User connected :", req.isConnected);
-    res.send(req.isConnected);
+app.get('/IsClientConnected',validateJWT, async (req, res) => {
+    // console.log("User connected :", req.isConnected);
+    res.send(req.twitch_informations);
 });
+
 
 
 // Endpoint de callback pour recevoir le "code" et échanger contre un access token
@@ -160,10 +161,16 @@ async function validateJWT(req, res, next) {
         //JWT valide donc on vérifie si le token récupéré est valide
         const decoded = jwt.verify(token, process.env.SECRET_JWT_KEY);
         req.user = decoded;
-        const isConnected = await validateToken(decoded.token);
-        // console.log("Vous êtes bien connecté : ", isConnected);
-        req.isConnected = isConnected; 
+        const ISCONNECTED = await validateToken(decoded.token);
+        const USER_INFOS = ISCONNECTED ? await getUserInfo(decoded.token) : null; 
+        const TWITCH_INFORMATIONS = {
+            connected : ISCONNECTED,
+            userInfos : USER_INFOS
+        }
+
+        req.twitch_informations = TWITCH_INFORMATIONS; 
         return next();
+
     } catch (err) {
         req.isConnected = false;
         res.clearCookie('auth_token');

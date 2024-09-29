@@ -77,14 +77,30 @@ function btnProposerSuccess() {
 }
 
 const TWITCH_ICONE = '<img class="twitchIcone" src="icones/twitch-icon.svg"/>';
+
+//To change interface if user is connected or not
+async function loadConnected() {
+    const TWITCH_CONNECTION = await amIConnected();
+    if(TWITCH_CONNECTION.connected){
+        const USER_INFOS = TWITCH_CONNECTION.userInfos;
+        const TWITCH_CONNECTED_DIV = document.getElementById("twitchConnected");
+        TWITCH_CONNECTED_DIV.innerHTML = USER_INFOS.data[0].display_name + TWITCH_ICONE;
+        TWITCH_CONNECTED_DIV.title = "You are connected !";
+    }else{
+        console.log("Not connected to Twitch !");
+    }
+}
+
+/*
+data format => {
+    connected : true or false,
+    userInfos : (objet with twitch user informations)
+}
+*/
 //To know if user is connected
-function loadConnected() {
-    fetch('/userInfos').then(response => response.json()).then(data => {
-        console.log("Is Connected ? ", data);
-        // USER_INFOS = data;
-        // const TWITCH_CONNECTED_DIV = document.getElementById("twitchConnected");
-        // TWITCH_CONNECTED_DIV.innerHTML = USER_INFOS.data[0].display_name + TWITCH_ICONE;
-        // TWITCH_CONNECTED_DIV.title = "You are connected !";
+async function amIConnected(){
+    return await fetch('/IsClientConnected').then(response => response.json()).then(data => {
+        return data;
     }).catch(
         error => console.error('Error occurred:', error)
     );
