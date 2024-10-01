@@ -41,6 +41,11 @@ function loadMusicProposal() {
 
 async function btnProposerFeedback(btn){
     const TWITCH_CONNECTION = await amIConnected();
+    var oldBackground = btn.style.backgroundColor;
+    var oldText = btn.innerHTML;
+    var oldWidth = btn.style.width;
+    var delayBeforeComeBack = 2000; 
+
     btn.style.width = "100%";
     if (!TWITCH_CONNECTION.connected) {
         btn.innerHTML = "Envoi réussi";
@@ -48,6 +53,13 @@ async function btnProposerFeedback(btn){
         btn.style.backgroundColor = 'red';
         btn.innerHTML = "Vous n'êtes pas connecté à Twitch !";
     }
+
+    setTimeout(function() {
+        btn.innerHTML = oldText;
+        btn.style.width = oldWidth
+        btn.style.backgroundColor = oldBackground;
+        //your code to be executed after 3 second
+      }, delayBeforeComeBack);
     
 }
 
