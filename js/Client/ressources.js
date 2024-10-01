@@ -1,5 +1,5 @@
 function loadMusicGalerie() {
-    fetch('/musicsGalerie').then(response => response.json()).then(data => {
+    fetch('/musics/GET').then(response => response.json()).then(data => {
         const urls = data.map(musiques => convertToEmbeddedLink(`${musiques.url}`));
         urls.forEach((element) => {
             const divVideo = "<div><iframe class='videoYoutube' src='" + element + "' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe></div>";
@@ -38,7 +38,7 @@ function insertNewMusic(urlParameter) {
         url: convertToEmbeddedLink(urlParameter)
     };
 
-    fetch('/insertNewMusic', {
+    fetch('//musics/INSERT', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -99,7 +99,7 @@ data format => {
 */
 //To know if user is connected
 async function amIConnected(){
-    return await fetch('/IsClientConnected').then(response => response.json()).then(data => {
+    return await fetch('/twitch/IsClientConnected').then(response => response.json()).then(data => {
         return data;
     }).catch(
         error => console.error('Error occurred:', error)

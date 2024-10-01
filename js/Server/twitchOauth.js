@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv");
 const router = express.Router();
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+router.use(cookieParser());
 dotenv.config();
 
 // Diverses fonctions utilitaires
@@ -184,4 +184,8 @@ async function validateToken(user_access_token) {
     }
 }
 
-module.exports = router;
+
+module.exports = {
+    validateJWT:validateJWT,
+    router:router
+}
