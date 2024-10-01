@@ -27,8 +27,8 @@
         <div>
             <button>Musiques</button>
             <div class="sousMenu">
-                <button id="musicProposal">Propositions</button>
-                <button id="musicGalerie">Galerie</button>
+                <button id="musicsProposal">Propositions</button>
+                <button id="musicsGalerie">Galerie</button>
             </div>
         </div>
         <div>
@@ -49,64 +49,32 @@
     </div>
 </body>
 <script>
+    const MAINCONTENTDIV = document.getElementsByClassName("mainScreen")[0];
+    connectUSER();
 
-    loadConnected();
     //Gestion Menus
-    document.querySelectorAll("button").forEach(element => {
-        element.addEventListener('click', function (e) {
+    document.querySelectorAll("button").forEach(button => {
+
+        button.addEventListener('click', function (e) {
             //Remove all "active" class
             document.querySelectorAll(".active").forEach(element => {
                 element.classList.remove("active");
             });
 
-            element.classList.add("active");
-            if (!element.parentNode.classList.contains("sousMenu")) {
+            button.classList.add("active");
+            if (!button.parentNode.classList.contains("sousMenu")) {
                 closeAllTabs();
             }
-            openSousMenu(element);
+            openSousMenu(button);
+            configureHTMLRoutes(button);
         });
     });
 
-
-    const mainContentDiv = document.getElementsByClassName("mainScreen")[0];
-
-    //Home
-    document.getElementById('home').addEventListener('click', function (e) {
-        e.preventDefault(); // Empêche l'action par défaut du lien
-        setNewHTML("html/home.html", mainContentDiv, loadHome);
-    });
-
-    //Musics galerie
-    document.getElementById('musicGalerie').addEventListener('click', function (e) {
-        e.preventDefault(); // Empêche l'action par défaut du lien
-        setNewHTML("html/musicsGalerie.html", mainContentDiv, loadMusicGalerie);
-    });
-
-    //Musics proposal
-    document.getElementById('musicProposal').addEventListener('click', function (e) {
-        e.preventDefault(); // Empêche l'action par défaut du lien
-        setNewHTML("html/musicsProposal.html", mainContentDiv, loadMusicProposal);
-    });
-
-    //Art Proposal
-    document.getElementById('artProposal').addEventListener('click', function (e) {
-        e.preventDefault(); // Empêche l'action par défaut du lien
-        setNewHTML("html/artProposal.html", mainContentDiv, loadArtProposal);
-    });
-
-    //Art Galerie
-    document.getElementById('artGalerie').addEventListener('click', function (e) {
-        e.preventDefault(); // Empêche l'action par défaut du lien
-        setNewHTML("html/artGalerie.html", mainContentDiv, loadArtGalerie);
-    });
-
-    //Card Collection
-    document.getElementById('cardCollection').addEventListener('click', function (e) {
-        e.preventDefault(); // Empêche l'action par défaut du lien
-        setNewHTML("html/cardCollection.html", mainContentDiv, loadCardCollection);
-    });
-
-
+    function configureHTMLRoutes(button){
+        let htmlFileName = button.id;
+        if(htmlFileName === "") return;
+        setNewHTML(htmlFileName, MAINCONTENTDIV);
+    }
 </script>
 
 </html>

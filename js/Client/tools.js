@@ -1,24 +1,20 @@
-function setNewHTML(htmlFile, div, loadFunction) {
-    fetch(htmlFile).then(response => {
-        if (!response.ok) {
-            throw new Error('Erreur lors du chargement du fichier');
-        }
+function setNewHTML(htmlFileName, div) {
+    fetch("html/" + htmlFileName + ".html").then(response => {
+        if (!response.ok) throw new Error('Erreur lors du chargement du fichier');
         return response.text();
     }).then(content => {
         div.innerHTML = content;
-        loadFunction();
+        Load(htmlFileName);
         return content;
-    })
-        .catch(error => {
-            console.error('Erreur:', error);
-            return false;
-        });
+    }).catch(error => {
+        console.error('Erreur:', error, "File Name : ", htmlFileName);
+        return false;
+    });
 }
 
-var scriptEle = document.createElement("script");
 
+var scriptEle = document.createElement("script");
 function loadJS(FILE_URL, async = true) {
-    
     scriptEle.setAttribute("src", FILE_URL);
     scriptEle.setAttribute("type", "text/javascript");
     scriptEle.setAttribute("async", async);
@@ -56,9 +52,10 @@ function closeAllTabs() {
     });
 }
 
+
 function openSousMenu(menu) {
     var sousMenu = menu.parentNode.querySelector(".sousMenu");
-    if(sousMenu === null) return; // Pas de sous menu
+    if (sousMenu === null) return; // Pas de sous menu
     sousMenu.style.display = sousMenu.style.display === "none" ||
         sousMenu.style.display === ""
         ? "block" : "none";
