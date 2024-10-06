@@ -1,3 +1,9 @@
+06/10/2024 ----------------------------------------------------------------------------------------------------------------
+
+Restructuration de l'architecture du site.
+Meilleure gestion de la vérification des reqûetes SQL (surtout d'import)
+Facilitation de l'appel des requêtes.
+
 25/09/2024 ----------------------------------------------------------------------------------------------------------------
 
 Amélioration visuelle du site, connexion twitch MAIS déplacer la connexion twitch sur script.js (côté serveur) pour plus de sécurité
