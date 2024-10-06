@@ -1,4 +1,7 @@
+const express = require('express');
 const { Pool } = require('pg');
+const TWITCH = require('../twitchOauth');
+
 
 // Create a Postgres Connection 
 const POOL = new Pool({
@@ -10,5 +13,6 @@ const POOL = new Pool({
 
 
 module.exports = {
-    pool: POOL
-  };
+    pool: POOL,
+    twitch: TWITCH
+};

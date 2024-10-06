@@ -23,7 +23,7 @@ function Load(HTMLFileName) {
 }
 
 
-function loadMusicProposal() {
+async function loadMusicProposal() {
     var input = document.getElementById("inputProposal");
     var videoIframe = document.getElementById("apercuVideo");
 
@@ -32,35 +32,40 @@ function loadMusicProposal() {
     });
 
     var btnProposer = document.getElementById("btnProposer");
-    btnProposer.addEventListener("click", (event) => {
-        btnProposerFeedback(btnProposer);
-        insertNewMusic(input.value);
-    });
+    btnProposer.addEventListener("click", () => btnProposerEvent(input.value), false);      
+}
+
+async function btnProposerEvent(valueInput){
+    var response = await insertNewMusic(valueInput);
+    btnProposerFeedback(btnProposer, response);
 }
 
 
-async function btnProposerFeedback(btn){
-    const TWITCH_CONNECTION = await amIConnected();
+var can_propose_music = true;
+async function btnProposerFeedback(btn, response) {
+    // const TWITCH_CONNECTION = await amIConnected();
     var oldBackground = btn.style.backgroundColor;
     var oldText = btn.innerHTML;
     var oldWidth = btn.style.width;
-    var delayBeforeComeBack = 2000; 
-
+    var delayBeforeComeBack = 2000;
     btn.style.width = "100%";
-    if (!TWITCH_CONNECTION.connected) {
-        btn.innerHTML = "Envoi réussi";
-    }else{
+
+    if(response.status !== 201){
         btn.style.backgroundColor = 'red';
-        btn.innerHTML = "Vous n'êtes pas connecté à Twitch !";
+        btn.innerHTML = response.message;
+    }else{
+        btn.innerHTML = "Envoi réussi";
+        can_propose_music = false;
     }
 
-    setTimeout(function() {
+    setTimeout(function () {
         btn.innerHTML = oldText;
         btn.style.width = oldWidth
         btn.style.backgroundColor = oldBackground;
-        //your code to be executed after 3 second
-      }, delayBeforeComeBack);
-    
+        can_propose_music = true;
+       //s'éxecute au bout de 2 secondes
+    }, delayBeforeComeBack);
+
 }
 
 
@@ -79,31 +84,33 @@ function loadMusicGalerie() {
 
 
 //INSERT new song by youtube url
-function insertNewMusic(urlParameter) {
-    if (!user_connected) {
-        console.log("User not connected !");
-        return;
+async function insertNewMusic(urlParameter) {
+
+    const url = convertToEmbeddedLink(urlParameter);
+    if(!url) {
+        return "Il y a une erreur avec ce lien";
     }
 
     const musicData = {
-        pseudo: USER_INFOS.data[0].display_name,
-        url: convertToEmbeddedLink(urlParameter)
+        url: url
     };
 
-    fetch('/musics/INSERT', {
+    var result = await fetch('/musics/INSERT', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(musicData)
-    }).then(response => response.text()).then(data => {
-        console.log('Success:', data);
-        btnProposerSuccess();
-
+    }).then(response => {
+        return {
+            status : response.status,
+            message: response.statusText
+        };
     }).catch((error) => {
         console.error('Error:', error);
-
-    });
+    });   
+    
+    return result;
 }
 
 
@@ -146,7 +153,7 @@ data format => {
 */
 //To know if user is connected
 async function amIConnected() {
-    return await fetch('/twitch/IsClientConnected').then(response => response.json()).then(data => {
+    return await fetch('/twitch/GetTwitchInformations').then(response => response.json()).then(data => {
         return data;
     }).catch(
         error => console.error('Error occurred:', error)

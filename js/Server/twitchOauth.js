@@ -53,8 +53,8 @@ router.get('/login', (req, res) => {
 });
 
 
-router.get('/IsClientConnected',validateJWT, async (req, res) => {
-    // console.log("User connected :", req.isConnected);
+router.get('/GetTwitchInformations',validateJWT, async (req, res) => {
+    //If req.twitch_informations.connected !== undefined && true => connecté 
     res.send(req.twitch_informations);
 });
 
@@ -111,8 +111,8 @@ router.get('/callback', async (req, res) => {
 
 // Middleware pour valider le JWT
 async function validateJWT(req, res, next) {
-    const token = req.cookies.auth_token;
-    
+    token = req.cookies.auth_token;
+
     if (!token) {
         // console.log("Utilisateur jamais connecté");
         req.isConnected = false;

@@ -2,10 +2,13 @@
 const express = require('express');
 const app = express(); // Connect and Create an Express Application 
 const twitch = require('./js/Server/twitchOauth');
+const musics = require('./js/Server/BDD/musics');
+
 const path = require('path');
 
 // Routes setup
 app.use('/twitch', twitch.router);
+app.use('/musics', musics.router);
 //app.use('/bdd', bdd);
 app.use(express.static(__dirname + '/'));
 

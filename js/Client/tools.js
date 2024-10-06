@@ -41,7 +41,7 @@ function convertToEmbeddedLink(youtubeUrl) {
         const videoId = videoIdMatch[1]; // Récupération de l'ID de la vidéo
         return `https://www.youtube.com/embed/${videoId}`; // Lien embedded
     } else {
-        return ""; // Retourne null si l'ID de la vidéo n'est pas trouvé
+        return false; // Retourne null si l'ID de la vidéo n'est pas trouvé
     }
 }
 

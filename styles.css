@@ -10,8 +10,9 @@ html {
 
 #backgroundImage {
     position: absolute;
+    top: 0;
     left: 20%;
-    width: 80%;
+    width: 100%;
     height: 100%;
     background-repeat: round;
     filter: grayscale(28%) blur(7px);
@@ -75,15 +76,24 @@ body {
 #content {
     display: grid;
     justify-content: center;
-    gap: 49px;
-    width: 100%;
+    /* gap: 49px; */
+    width: 84%;
     height: 100%;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 33% 33% 33%;
+    /* grid-template-rows: 33%; */
     max-height: 81vh;
     overflow: scroll;
-    padding-top: 2vh;
+    padding-top: 4vh;
     overflow-y: auto;
     overflow-x: auto;
+    row-gap: 19px;
+    position: relative;
+}
+
+
+#content > div{
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .row {
