@@ -2,6 +2,7 @@
 
 Ajout d'un système de pages dans la galerie de musiques
 Optimisation du chargement des vidéos
+![2024-10-0800-04-24-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/d2f2d1d3-a12e-453b-b395-0ba3934860e0)
 
 06/10/2024 ----------------------------------------------------------------------------------------------------------------
 
