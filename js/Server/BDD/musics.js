@@ -10,9 +10,13 @@ router.use(cookieParser());
 
 
 // Route handler for GET student data 
-router.get('/GET', (req, res) => {
-    const query = 'SELECT * FROM musics;';
-    config.pool.query(query, (error, result) => {
+router.get('/GET/:page', (req, res) => {
+    const PAGE = req.params.page;
+    const LIMIT = 9;
+    const MIN_ID = LIMIT * (PAGE - 1);
+
+    const query = 'SELECT * FROM musics LIMIT $1 OFFSET $2;';
+    config.pool.query(query, [LIMIT, MIN_ID],  (error, result) => {
         if (error) {
             console.log('Error occurred:', error);
             res.status(500).send('An error occurred while retrieving data from the database.');

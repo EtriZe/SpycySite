@@ -76,14 +76,13 @@ body {
 #content {
     display: grid;
     justify-content: center;
-    /* gap: 49px; */
+    align-content: baseline;
     width: 84%;
     height: 100%;
     grid-template-columns: 33% 33% 33%;
-    /* grid-template-rows: 33%; */
     max-height: 81vh;
     overflow: scroll;
-    padding-top: 4vh;
+    padding-top: 9vh;
     overflow-y: auto;
     overflow-x: auto;
     row-gap: 19px;
@@ -110,20 +109,15 @@ iframe {
 }
 
 .search-container {
-    /* background-color: #535353; */
     height: 50px;
-    /* border-radius: 30px; */
-    /* margin: 10px 20px; */
-    display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    /* margin-bottom: 28px; */
     width: 42vw;
     display: grid;
     grid-template-columns: 90%;
-    /* justify-content: center; */
-    /* align-items: center; */
+    position: absolute;
+    top: 10%;
 }
 
 .search-container .search-input {
@@ -140,6 +134,7 @@ iframe {
     padding: 1%;
     padding-left: 3%;
     padding-right: 3%;
+    box-shadow: 5px 5px 15px 5px #000000;
 }
 
 nordpass-passkeys {
@@ -151,8 +146,8 @@ nordpass-passkeys {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 11vh;
-    height: 84%;
+    padding-top: 3vh;
+    height: 85%;
     z-index: 1;
 }
 
@@ -293,4 +288,36 @@ button:hover {
 #twitchConnected button {
     text-decoration: none;
     color: white;
+}
+
+.pageChange{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 21%;
+    width: 11%;
+    padding: 7px;
+    align-items: center;
+    color: white;
+    background-color: #333;
+    border-radius: 15px;
+    /* -webkit-box-shadow: 5px 5px 15px 5px #000000; */
+    box-shadow: 5px 5px 15px 5px #000000;
+    position: absolute;
+    bottom: 1%;
+}
+
+#rightPageImg{
+    transform: rotate(180deg);
+    width: 1.5vw;
+}
+
+#leftPageImg{
+    width: 1.5vw;
+}
+
+#actualPage{
+    display: flex;
+    flex-direction: row;
+    gap: 13px;
 }

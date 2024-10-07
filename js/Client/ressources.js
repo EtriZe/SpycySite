@@ -4,7 +4,8 @@ function Load(HTMLFileName) {
             loadHome();
             break;
         case "musicsGalerie":
-            loadMusicGalerie();
+            handlingPagesMusics();
+            loadMusicGalerie(1);
             break;
         case "musicsProposal":
             loadMusicProposal();
@@ -22,6 +23,25 @@ function Load(HTMLFileName) {
     }
 }
 
+function handlingPagesMusics(){
+    const RIGHT_PAGE = document.querySelector("#page-after");
+    RIGHT_PAGE.addEventListener("click", function(e){
+        const PAGE = document.querySelector("#page-number");
+        const PAGE_VALUE = parseInt(PAGE.innerHTML);
+        let newPage = PAGE_VALUE + 1;
+        PAGE.innerHTML = newPage;
+        loadMusicGalerie(newPage);
+    });
+
+    const LEFT_PAGES = document.querySelector("#page-before");
+    LEFT_PAGES.addEventListener("click", function(e){
+        const PAGE = document.querySelector("#page-number");
+        const PAGE_VALUE = parseInt(PAGE.innerHTML);
+        let newPage = PAGE_VALUE === 1 ? 1 : PAGE_VALUE - 1;
+        PAGE.innerHTML = newPage;
+        loadMusicGalerie(newPage);
+    });
+}
 
 async function loadMusicProposal() {
     var input = document.getElementById("inputProposal");
@@ -69,11 +89,16 @@ async function btnProposerFeedback(btn, response) {
 }
 
 
-function loadMusicGalerie() {
-    fetch('/musics/GET').then(response => response.json()).then(data => {
+function loadMusicGalerie(page_number) {
+
+    fetch('/musics/GET/'+ page_number).then(response => response.json()).then(data => {
         const urls = data.map(musiques => convertToEmbeddedLink(`${musiques.url}`));
-        urls.forEach((element) => {
-            const divVideo = "<div><iframe class='videoYoutube' src='" + element + "' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe></div>";
+        document.getElementById("content").innerHTML = '';
+        urls.forEach((element) => { // Element exemple : https://www.youtube.com/embed/vm58qGBpDuU
+            
+            // Extraire la partie de la chaîne après le dernier "/"
+            const videoId = element.substring(element.lastIndexOf("/") + 1);
+            const divVideo = "<lite-youtube videoid='" + videoId + "' params='controls=1'></lite-youtube>";
             if (element === "") return;
             document.getElementById("content").innerHTML += divVideo;
         });
@@ -159,3 +184,4 @@ async function amIConnected() {
         error => console.error('Error occurred:', error)
     );
 }
+
