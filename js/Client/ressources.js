@@ -98,7 +98,7 @@ function loadMusicGalerie(page_number) {
             
             // Extraire la partie de la chaîne après le dernier "/"
             const videoId = element.substring(element.lastIndexOf("/") + 1);
-            const divVideo = "<lite-youtube videoid='" + videoId + "' params='controls=1'></lite-youtube>";
+            const divVideo = "<div class='youtube-container-galerie'><lite-youtube videoid='" + videoId + "' params='controls=1'></lite-youtube><div class='youtube-galerie-informations'><div class='pseudo-galerie'>EtriZe</div><img class='favIcone' src='icones/fullHeart.svg'/></div></div>";
             if (element === "") return;
             document.getElementById("content").innerHTML += divVideo;
         });

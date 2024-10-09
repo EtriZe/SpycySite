@@ -7,11 +7,11 @@ lite-youtube {
     background-size: cover;
     cursor: pointer;
     max-width: 720px;
-    width: 20vw !important;
-    height: 22vh !important;
+    width: 31vh!important;
+    height: 15vh !important;
     border-radius: 15px;
-    -webkit-box-shadow: 5px 5px 15px 5px #000000;
-    box-shadow: 5px 5px 15px 5px #000000;
+    /* -webkit-box-shadow: 5px 5px 15px 5px #000000; */
+    /* box-shadow: 5px 5px 15px 5px #000000; */
 }
 
 /* gradient */
