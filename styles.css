@@ -95,6 +95,7 @@ body {
     margin-right:auto;
     background-color: white;
     /* padding: 3%; */
+    min-width: 68%;
 }
 
 .row {
@@ -353,18 +354,19 @@ button:hover {
 }
 
 .youtube-galerie-informations{
-    display:flex;
+    display: grid;
     flex-direction: row;
     justify-content: space-between;
     /* margin-left: 8%; */
     /* margin-right: 8%; */
     /* margin-top: 3%; */
     margin: 5%;
+    grid-template-columns: 30% 70%;
 }
 
 
 
-.favIcone{max-width: 12%;}
+.favIcone{max-width: 16%;margin-left: auto;}
 
 .pseudo-galerie{
     white-space: nowrap;

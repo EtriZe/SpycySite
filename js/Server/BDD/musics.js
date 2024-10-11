@@ -7,6 +7,8 @@ router.use(bp.urlencoded({extended: true}));
 const axios = require('axios');
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
+const dotenv = require("dotenv");
+dotenv.config();
 
 
 // Route handler for GET student data 
@@ -15,7 +17,7 @@ router.get('/GET/:page', (req, res) => {
     const LIMIT = 9;
     const MIN_ID = LIMIT * (PAGE - 1);
 
-    const query = 'SELECT * FROM musics ORDER BY idmusic ASC LIMIT $1 OFFSET $2;';
+    const query = 'SELECT * FROM musics ORDER BY idmusic DESC LIMIT $1 OFFSET $2;';
     config.pool.query(query, [LIMIT, MIN_ID],  (error, result) => {
         if (error) {
             console.log('Error occurred:', error);
@@ -72,8 +74,24 @@ router.post('/LIKE', config.twitch.validateJWT, async (req, res) => {
         return res.status(400).end();
     }
 
-    const TWITCH_USER_DATA = req.twitch_informations.userInfos.data[0]
+    const TWITCH_USER_DATA = req.twitch_informations.userInfos.data[0];
     const pseudo = TWITCH_USER_DATA.display_name;
+    let IsAdmin = false;
+
+    switch(TWITCH_USER_DATA.id){
+        // case process.env.TWITCH_ADMIN_ID_VAL :
+        case process.env.TWITCH_ADMIN_ID_VAL :
+            IsAdmin = true;
+            break;
+        default:
+            IsAdmin = false;
+            break;
+    }
+
+    if( ! IsAdmin) {
+        res.statusMessage = "Vous n'êtes pas administrateur";
+        return res.status(400).end();
+    }
 
     // Créer la requête SQL d'insertion
     const query = "UPDATE musics SET liked = $1 WHERE idmusic = $2 AND twitchname = $3;";

@@ -1,3 +1,5 @@
+let ISUSERADMIN = false;
+
 function Load(HTMLFileName) {
     switch (HTMLFileName) {
         case "home":
@@ -90,31 +92,34 @@ async function btnProposerFeedback(btn, response) {
 
 
 function loadMusicGalerie(page_number) {
-
+    
     fetch('/musics/GET/'+ page_number).then(response => response.json()).then(data => {
-        const urls = data.map(musiques => convertToEmbeddedLink(`${musiques.url}`));
-        const pseudos = data.map(musiques => `${musiques.twitchname}`);
-        const isLikeds = data.map(musiques => `${musiques.liked}`);
-        const ids = data.map(musiques => `${musiques.idmusic}`);
+        let urls = data.map(musiques => convertToEmbeddedLink(`${musiques.url}`));
+        let pseudos = data.map(musiques => `${musiques.twitchname}`);
+        let isLikeds = data.map(musiques => `${musiques.liked}`);
+        let ids = data.map(musiques => `${musiques.idmusic}`);
 
+       
         document.getElementById("content").innerHTML = '';
-        urls.forEach((element, key) => { // Element exemple : https://www.youtube.com/embed/vm58qGBpDuU
-            console.log(isLikeds[key]);
+        urls.forEach(function(element, key){ // Element exemple : https://www.youtube.com/embed/vm58qGBpDuU
             let srcIconeLike = isLikeds[key] === "true" ? 'icones/fullHeart.svg' : 'icones/emptyHeart.svg'
             // Extraire la partie de la chaîne après le dernier "/"
             const videoId = element.substring(element.lastIndexOf("/") + 1);
-            const divVideo = "<div class='youtube-container-galerie'><lite-youtube videoid='" + videoId + "' params='controls=1'></lite-youtube><div class='youtube-galerie-informations'><div class='pseudo-galerie'>"+pseudos[key]+"</div><img class='favIcone' music-id='"+ids[key]+"' src='"+srcIconeLike+"'/></div></div>";
+            
+            //Boutons autorisé que pour l'admin
+            let htmlLikeButton = "<img class='favIcone' music-id='"+ids[key]+"' src='"+srcIconeLike+"'/>";
+
+            const divVideo = "<div class='youtube-container-galerie'><lite-youtube videoid='" + videoId + "' params='controls=1'></lite-youtube><div class='youtube-galerie-informations'><div class='pseudo-galerie'>"+pseudos[key]+"</div>"+htmlLikeButton+"</div></div>";
             if (element === "") return;
             document.getElementById("content").innerHTML += divVideo;
         });
     }).catch(
         error => console.error('Error occurred:', error)
     ).finally(() => {
-        addLogicFavButtons();
-    });
-
-   
+        if(ISUSERADMIN) addLogicFavButtons();
+    }); 
 }
+
 
 function addLogicFavButtons(){
     let likedButtons = document.querySelectorAll(".favIcone");
@@ -210,6 +215,7 @@ async function connectUSER() {
     const TWITCH_CONNECTION = await amIConnected();
     if (TWITCH_CONNECTION.connected) {
         const USER_INFOS = TWITCH_CONNECTION.userInfos;
+        ISUSERADMIN = USER_INFOS.data[0].isAdmin;
         const TWITCH_CONNECTED_DIV = document.getElementById("twitchConnected");
         TWITCH_CONNECTED_DIV.innerHTML = USER_INFOS.data[0].display_name + TWITCH_ICONE;
         TWITCH_CONNECTED_DIV.title = "You are connected !";
