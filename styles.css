@@ -349,6 +349,7 @@ button:hover {
     box-shadow: 7px 10px 15px 5px #000000;
     border-radius: 13px;
     max-width: 64%;
+    /* max-height: 96%; */
 }
 
 .youtube-galerie-informations{

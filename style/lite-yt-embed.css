@@ -6,9 +6,9 @@ lite-youtube {
     background-position: center center;
     background-size: cover;
     cursor: pointer;
-    max-width: 720px;
-    width: 31vh!important;
-    height: 15vh !important;
+    /* max-width: 720px; */
+    width: 100%!important;
+    height: 150px !important;
     border-radius: 15px;
     /* -webkit-box-shadow: 5px 5px 15px 5px #000000; */
     /* box-shadow: 5px 5px 15px 5px #000000; */

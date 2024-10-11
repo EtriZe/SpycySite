@@ -93,20 +93,68 @@ function loadMusicGalerie(page_number) {
 
     fetch('/musics/GET/'+ page_number).then(response => response.json()).then(data => {
         const urls = data.map(musiques => convertToEmbeddedLink(`${musiques.url}`));
+        const pseudos = data.map(musiques => `${musiques.twitchname}`);
+        const isLikeds = data.map(musiques => `${musiques.liked}`);
+        const ids = data.map(musiques => `${musiques.idmusic}`);
+
         document.getElementById("content").innerHTML = '';
-        urls.forEach((element) => { // Element exemple : https://www.youtube.com/embed/vm58qGBpDuU
-            
+        urls.forEach((element, key) => { // Element exemple : https://www.youtube.com/embed/vm58qGBpDuU
+            console.log(isLikeds[key]);
+            let srcIconeLike = isLikeds[key] === "true" ? 'icones/fullHeart.svg' : 'icones/emptyHeart.svg'
             // Extraire la partie de la chaîne après le dernier "/"
             const videoId = element.substring(element.lastIndexOf("/") + 1);
-            const divVideo = "<div class='youtube-container-galerie'><lite-youtube videoid='" + videoId + "' params='controls=1'></lite-youtube><div class='youtube-galerie-informations'><div class='pseudo-galerie'>EtriZe</div><img class='favIcone' src='icones/fullHeart.svg'/></div></div>";
+            const divVideo = "<div class='youtube-container-galerie'><lite-youtube videoid='" + videoId + "' params='controls=1'></lite-youtube><div class='youtube-galerie-informations'><div class='pseudo-galerie'>"+pseudos[key]+"</div><img class='favIcone' music-id='"+ids[key]+"' src='"+srcIconeLike+"'/></div></div>";
             if (element === "") return;
             document.getElementById("content").innerHTML += divVideo;
         });
     }).catch(
         error => console.error('Error occurred:', error)
-    );
+    ).finally(() => {
+        addLogicFavButtons();
+    });
+
+   
 }
 
+function addLogicFavButtons(){
+    let likedButtons = document.querySelectorAll(".favIcone");
+    likedButtons.forEach((likeButton) => {
+        likeButton.addEventListener("click", function(e){
+            if(likeButton.src.includes("empty")){
+                likeButton.src = "icones/fullHeart.svg";
+                setFavorite("true", likeButton.getAttribute("music-id"));
+            }else{
+                likeButton.src = "icones/emptyHeart.svg";
+                setFavorite("false", likeButton.getAttribute("music-id"));
+            }
+        });
+    });
+}
+
+async function setFavorite(isLiked, idValue){
+
+    const isLikedData = {
+        isLiked : isLiked,
+        idValue : idValue
+    };
+    
+    var result = await fetch('/musics/LIKE', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(isLikedData)
+    }).then(response => {
+        return {
+            status : response.status,
+            message: response.statusText
+        };
+    }).catch((error) => {
+        console.error('Error:', error);
+    });   
+    
+    return result;
+}
 
 //INSERT new song by youtube url
 async function insertNewMusic(urlParameter) {

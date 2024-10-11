@@ -15,7 +15,7 @@ router.get('/GET/:page', (req, res) => {
     const LIMIT = 9;
     const MIN_ID = LIMIT * (PAGE - 1);
 
-    const query = 'SELECT * FROM musics LIMIT $1 OFFSET $2;';
+    const query = 'SELECT * FROM musics ORDER BY idmusic ASC LIMIT $1 OFFSET $2;';
     config.pool.query(query, [LIMIT, MIN_ID],  (error, result) => {
         if (error) {
             console.log('Error occurred:', error);
@@ -62,6 +62,30 @@ router.post('/INSERT', config.twitch.validateJWT, async (req, res) => {
     });
 });
 
+// Route handler for LIKE a song
+router.post('/LIKE', config.twitch.validateJWT, async (req, res) => {
+    // Récupérer les données du corps de la requête
+    const { isLiked, idValue } = req.body;
+
+    if( ! req.twitch_informations.connected){
+        res.statusMessage = "Vous n'êtes pas connecté à Twitch";
+        return res.status(400).end();
+    }
+
+    const TWITCH_USER_DATA = req.twitch_informations.userInfos.data[0]
+    const pseudo = TWITCH_USER_DATA.display_name;
+
+    // Créer la requête SQL d'insertion
+    const query = "UPDATE musics SET liked = $1 WHERE idmusic = $2 AND twitchname = $3;";
+    // Exécuter la requête avec les valeurs fournies
+    config.pool.query(query, [isLiked, idValue, pseudo], (error, result) => {
+        if (error) {
+            res.statusMessage = "Erreur avec la base de données";
+            return res.status(400).end();
+        }
+        res.status(201).json("Like Réussi"); // 201 = Created
+    });
+});
 
 
 module.exports = {
