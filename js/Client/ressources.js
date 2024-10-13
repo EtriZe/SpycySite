@@ -31,7 +31,7 @@ function handlingPagesMusics(){
         const PAGE = document.querySelector("#page-number");
         const PAGE_VALUE = parseInt(PAGE.innerHTML);
         let newPage = PAGE_VALUE + 1;
-        PAGE.innerHTML = newPage;
+        //PAGE.innerHTML = newPage;
         loadMusicGalerie(newPage);
     });
 
@@ -40,8 +40,14 @@ function handlingPagesMusics(){
         const PAGE = document.querySelector("#page-number");
         const PAGE_VALUE = parseInt(PAGE.innerHTML);
         let newPage = PAGE_VALUE === 1 ? 1 : PAGE_VALUE - 1;
-        PAGE.innerHTML = newPage;
+        //PAGE.innerHTML = newPage;
         loadMusicGalerie(newPage);
+    });
+
+    const SEARCHPSEUDO = document.querySelector(".pseudoSearch-input");
+    SEARCHPSEUDO.addEventListener("keyup", function(e){
+        //On search on revient page 1
+        loadMusicGalerie(1);
     });
 }
 
@@ -92,8 +98,18 @@ async function btnProposerFeedback(btn, response) {
 
 
 function loadMusicGalerie(page_number) {
-    
-    fetch('/musics/GET/'+ page_number).then(response => response.json()).then(data => {
+
+    let pseudoSearchValue = document.querySelector(".pseudoSearch-input").value === "" ? "0" : document.querySelector(".pseudoSearch-input").value;
+    fetch('/musics/GET/'+ page_number + '/' + pseudoSearchValue).then(response => response.json()).then(data => {
+
+        if(data.length !== 0) {
+            document.querySelector("#page-number").innerHTML = page_number;
+        }
+
+        if(page_number !== "0", data.length === 0){
+            return;
+        }
+
         let urls = data.map(musiques => convertToEmbeddedLink(`${musiques.url}`));
         let pseudos = data.map(musiques => `${musiques.twitchname}`);
         let isLikeds = data.map(musiques => `${musiques.liked}`);

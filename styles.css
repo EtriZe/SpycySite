@@ -95,7 +95,7 @@ body {
     margin-right:auto;
     background-color: white;
     /* padding: 3%; */
-    min-width: 68%;
+    min-width: 59%;
 }
 
 .row {
@@ -123,8 +123,8 @@ iframe {
     top: 10%;
 }
 
-.search-container-proposal .search-input,
-.search-container .search-input {
+.search-container-proposal .pseudoSearch-input,
+.search-container .pseudoSearch-input {
     color: white;
     background: transparent;
     border: none;
@@ -150,8 +150,8 @@ nordpass-passkeys {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 3vh;
-    height: 85%;
+    padding-top: 6vh;
+    height: 100%;
     z-index: 1;
 }
 

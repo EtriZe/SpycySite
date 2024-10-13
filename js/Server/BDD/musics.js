@@ -12,13 +12,21 @@ dotenv.config();
 
 
 // Route handler for GET student data 
-router.get('/GET/:page', (req, res) => {
+router.get('/GET/:page/:pseudo', (req, res) => {
     const PAGE = req.params.page;
+    const PSEUDOSEARCH = req.params.pseudo;
     const LIMIT = 9;
     const MIN_ID = LIMIT * (PAGE - 1);
+    let sqlValues = [LIMIT, MIN_ID];
+    let searchOptions = "";
 
-    const query = 'SELECT * FROM musics ORDER BY idmusic DESC LIMIT $1 OFFSET $2;';
-    config.pool.query(query, [LIMIT, MIN_ID],  (error, result) => {
+    if(PSEUDOSEARCH !== "0"){
+        searchOptions = " WHERE twitchname ILIKE '%' || $3 || '%'";
+        sqlValues.push(PSEUDOSEARCH);
+    }
+
+    const query = 'SELECT * FROM musics'+ searchOptions +' ORDER BY idmusic DESC LIMIT $1 OFFSET $2;';
+    config.pool.query(query, sqlValues,  (error, result) => {
         if (error) {
             console.log('Error occurred:', error);
             res.status(500).send('An error occurred while retrieving data from the database.');

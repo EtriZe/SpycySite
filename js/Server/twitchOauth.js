@@ -55,6 +55,10 @@ router.get('/login', (req, res) => {
 
 router.get('/GetTwitchInformations',validateJWT, async (req, res) => {
     const TWITCH_INFORMATIONS = req.twitch_informations;
+    if(req.twitch_informations === undefined){
+        return res.send({connected : false});
+    }
+
     const TWITCH_USER_DATA = TWITCH_INFORMATIONS.userInfos.data[0];
     let IsAdmin = false;
 
