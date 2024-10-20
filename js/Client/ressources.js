@@ -12,14 +12,11 @@ function Load(HTMLFileName) {
         case "musicsProposal":
             loadMusicProposal();
             break;
-        case "artGalerie":
-            loadArtGalerie();
+        case "cardsOpening":
+            loadCardsOpening();
             break;
-        case "artProposal":
-            loadArtProposal();
-            break;
-        case "cardCollection":
-            loadCardCollection();
+        case "cardsCollection":
+            loadCardsCollection();
             break;
 
     }
@@ -220,8 +217,8 @@ function loadArtGalerie() {
     console.log("Load Art Galerie");
 }
 
-function loadCardCollection() {
-    console.log("Load Card Collection");
+function loadCardsCollection(){
+
 }
 
 const TWITCH_ICONE = '<img class="twitchIcone" src="icones/twitch-icon.svg"/>';

@@ -2,10 +2,10 @@ const express = require('express');
 const SCOPES = ["user_read"];
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
-const dotenv = require("dotenv");
 const router = express.Router();
 const cookieParser = require('cookie-parser');
 router.use(cookieParser());
+const dotenv = require("dotenv");
 dotenv.config();
 
 // Diverses fonctions utilitaires
@@ -100,6 +100,16 @@ router.get('/callback', async (req, res) => {
 
         const { access_token, expires_in } = response.data;
         const USER_VALUES = await getUserInfo(access_token);
+
+        //Sauver les données de ce user
+        // let result = user.addUser(USER_VALUES.data[0].display_name, USER_VALUES.data[0].id);
+        // console.log(result);
+        axios.post("http://localhost:3000/user/ADDUSER", {
+            name: USER_VALUES.data[0].display_name,
+            id: USER_VALUES.data[0].id
+        }).then(function(result) {
+            // console.log(result);
+        });
 
         const userData = {
             id: USER_VALUES.data[0].id,   // l'ID utilisateur Twitch
