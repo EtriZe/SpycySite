@@ -5,23 +5,70 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="mobileStyle.css">
     <link rel="stylesheet" type="text/css" href="style/lite-yt-embed.css">
     <script type="text/javascript" src="js/Client/tools.js"></script>
     <script type="text/javascript" src="js/Client/lite-yt-embed.js"></script>
     <script type="text/javascript" src="js/Client/ressources.js"></script>
     <link rel="icon" href="icones/Loo_sans_fond.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title> TooSpycySite </title>
 </head>
 
 <body>
-    <div id="backgroundImage"></div>
+    <div class="container-fluid full-height">
+        <div class="row full-height"> <!-- Colonne de gauche (20% largeur en desktop, 20% hauteur en mobile) -->
+            <div class="col-12 col-md-2 col-left p-3">
+                
+                <button class="active btnPanel" id="home">
+                    <img class="btnIcone" src="icones/Loo_sans_fond.png"/>
+                </button>
+                <div class="btnContainer">
+                    <button class="active mainBtnPanel">
+                        <img class="btnIcone" src="icones/logoCards.svg"/>
+                        <div class="txtBtn">Collection</div>
+                    </button>
+                    <button class="active mainBtnPanel">
+                        <img class="btnIcone" src="icones/Loo_sans_fond.png"/>
+                        <div class="txtBtn">Musiques</div>
+                    </button>
+                </div>
+               
+                <!-- <div class="accordion" id="menuAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne"> 
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" 
+                            aria-expanded="false" aria-controls="collapseOne"> 
+                                Musiques
+                            </button> 
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#menuAccordion">
+                            <div class="accordion-body"> 
+                                <button class="btn btn-light w-100 mb-1" id="musicsProposal">Propositions</button> 
+                                <button class="btn btn-light w-100 mb-1" id="musicsGalerie">Galerie</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+            </div>
+         <!-- Colonne de droite (80% largeur en desktop, 80% hauteur en mobile) -->
+            <div class="col-12 col-md-10 col-right">
+                <div class="h-100 d-flex justify-content-center align-items-center">
+                    <p>Colonne 2</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- <div id="backgroundImage"></div>
     <div id="twitchConnected">
         <a href="/twitch/login">
             <button>Login</button>
         </a>
-    </div>
+    </div> -->
 
-    <div class="leftnav">
+    <!-- <div class="leftnav">
         <div>
             <button class="active" id="home"><img class="twitchIcone" src="icones/Loo_sans_fond.png"
                     style="width: 11vw" /></button>
@@ -39,8 +86,8 @@
                 <button id="cardsOpening">Ouverture de cartes</button>
                 <button id="cardsCollection">Collection</button>
             </div>
-        </div>
-        <!-- <div>
+        </div> -->
+    <!-- <div>
             <button>Galerie</button>
             <div class="sousMenu">
                 <button id="artProposal">Propositions</button>
@@ -50,14 +97,27 @@
         <div>
             <button id="cardCollection">Collection</button>
         </div> -->
-    </div>
+    <!-- </div> -->
 
-    <div class="mainScreen">
-        <!-- Home by default -->
+    <!-- <div class="mainScreen">
         <h1 style="color:white">Bienvenue sur le site de TooSpycy</h1>
-    </div>
+    </div> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 </body>
+
 <script>
+
+
+
+
     const MAINCONTENTDIV = document.getElementsByClassName("mainScreen")[0];
     connectUSER();
 
@@ -79,9 +139,9 @@
         });
     });
 
-    function configureHTMLRoutes(button){
+    function configureHTMLRoutes(button) {
         let htmlFileName = button.id;
-        if(htmlFileName === "") return;
+        if (htmlFileName === "") return;
         setNewHTML(htmlFileName, MAINCONTENTDIV);
     }
 </script>
