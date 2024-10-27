@@ -1,6 +1,20 @@
 
 @media (max-width: 768px) {
 
+    .homeButton{
+        z-index: 0;
+        position:absolute;
+        bottom: 0vh;
+        left: 0;
+        /* right: calc(50vw - 10vw); */
+        height: auto !important;
+        width: 100% !important;
+        /* margin: auto; */
+    }
+    
+    .phoneContainer{
+        flex-direction: column-reverse;
+    }
     .col-left,
     .col-right {
         height: auto;
@@ -9,14 +23,15 @@
     }
 
     .col-left {
-        height: 17vh;
+        height: 10vh;
         align-items: center;
         gap: 1vw;
         /* 20% de la hauteur en mode téléphone */
+        box-shadow: 5px 5px 15px 5px #000000;
     }
 
     .col-right {
-        height: 83vh;
+        height: 90vh;
         /* 80% de la hauteur en mode téléphone */
     }
 
@@ -27,14 +42,20 @@
     
     .btnContainer{
         width: 100%;
+        z-index: 1;
         display:flex;
         flex-direction: row;
-        justify-content: end;
-        gap: 2vw;
+        justify-content: space-between;
+        padding-left: 4vw;
+        padding-right: 4vw;
+        /* gap: 2vw; */
     }
 
     .btnIcone{
-        height:12vh;
+        height: 12vh;
+        /* position: absolute; */
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .btnIcone{
