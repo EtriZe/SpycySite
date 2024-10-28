@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="mobileStyle.css">
+    <link rel="stylesheet" type="text/css" href="style/lite-yt-embed.css">
+    <script type="text/javascript" src="js/Client/tools.js"></script>
+    <script type="text/javascript" src="js/Client/lite-yt-embed.js"></script>
+    <script type="text/javascript" src="js/Client/ressources.js"></script>
+    <link rel="icon" href="icones/Loo_sans_fond.png">
+    <title> TooSpycySite </title>
+</head>
+
+<body>
+    <div id="backgroundImage"></div>
+    <div id="twitchConnected">
+        <a href="/twitch/login">
+            <button>Login</button>
+        </a>
+    </div>
+
+    <div class="leftnav">
+        <div>
+            <button class="active" id="home"><img class="twitchIcone" src="icones/Loo_sans_fond.png"
+                    style="width: 11vw" /></button>
+        </div>
+        <div>
+            <button>Musiques</button>
+            <div class="sousMenu">
+                <button id="musicsProposal">Propositions</button>
+                <button id="musicsGalerie">Galerie</button>
+            </div>
+        </div>
+        <div>
+            <button>Collection de cartes</button>
+            <div class="sousMenu">
+                <button id="cardsOpening">Ouverture de cartes</button>
+                <button id="cardsCollection">Collection</button>
+            </div>
+        </div>
+    <div>
+            <button>Galerie</button>
+            <div class="sousMenu">
+                <button id="artProposal">Propositions</button>
+                <button id="artGalerie">Galerie</button>
+            </div>
+        </div>
+        <div>
+            <button id="cardCollection">Collection</button>
+        </div>
+    </div>
+
+    <div class="mainScreen">
+        <h1 style="color:white">Bienvenue sur le site de TooSpycy</h1>
+    </div>
+
+</body>
+
+<script>
+
+
+
+
+    const MAINCONTENTDIV = document.getElementsByClassName("mainScreen")[0];
+    connectUSER();
+
+    //Gestion Menus
+    document.querySelectorAll("button").forEach(button => {
+
+        button.addEventListener('click', function (e) {
+            //Remove all "active" class
+            document.querySelectorAll(".active").forEach(element => {
+                element.classList.remove("active");
+            });
+
+            button.classList.add("active");
+            if (!button.parentNode.classList.contains("sousMenu")) {
+                closeAllTabs();
+            }
+            openSousMenu(button);
+            configureHTMLRoutes(button);
+        });
+    });
+
+    function configureHTMLRoutes(button) {
+        let htmlFileName = button.id;
+        if (htmlFileName === "") return;
+        setNewHTML(htmlFileName, MAINCONTENTDIV);
+    }
+</script>
+
+</html>

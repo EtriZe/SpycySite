@@ -1,6 +1,9 @@
 
 @media (max-width: 768px) {
-
+    .mainScreenContainer{
+        max-height: 90vh;
+        overflow: scroll;
+    }
     .homeButton{
         z-index: 0;
         position:absolute;
