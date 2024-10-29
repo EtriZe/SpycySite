@@ -63,3 +63,124 @@ body {
     background-color: #a32d80;
     /* Couleur de fond pour la deuxième colonne */
 }
+
+.mainScreenContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-container {
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 42vw;
+    display: grid;
+    grid-template-columns: 90%;
+    position: absolute;
+    top: 10%;
+}
+
+.search-container-proposal .pseudoSearch-input,
+.search-container .pseudoSearch-input {
+    color: white;
+    background: transparent;
+    border: none;
+    outline: none;
+    /* width: 100%; */
+    font-weight: 500;
+    font-size: 21px;
+    background-color: #333;
+    border-radius: 15px;
+    height: 43px;
+    /* padding: 1%; */
+    padding-left: 3%;
+    padding-right: 3%;
+    box-shadow: 5px 5px 15px 5px #000000;
+}
+
+.search-container-proposal{
+    /* position:absolute; */
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 72vw;
+    display: grid;
+    grid-template-columns: 90%;
+    top: 22%;
+}
+
+#btnProposer {
+    color: white;
+    background-color: #0a8f27;
+    border-radius: 15px;
+    /* width: 11vw; */
+    /* padding: 13px; */
+    width: 41%;
+    margin: auto;
+    /* font-size: 24px; */
+    font-weight: 500;
+    font-size: 21px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-top: 2%;
+    transition-property: width;
+    transition-duration: 1s;
+    white-space: nowrap;
+    /* Empêche le retour à la ligne */
+    overflow: hidden;
+    /* Cache le contenu débordant */
+    text-overflow: clip;
+}
+
+.grosTitre {
+    position: absolute;
+    top: 0;
+    font-size: 2vh;
+    color: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #333;
+    padding: 1vh;
+}
+
+
+#apercu {
+    margin-top: 8vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* position: absolute; */
+    /* bottom: 30%; */
+}
+
+#apercu iframe {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+#apercu h3 {
+    color: #333;
+    background: #ffffff;
+    width: 50vw;
+    text-align: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin: 0;
+    height: 4vh;
+    z-index: 1;
+}
+
+iframe {
+    border-radius: 15px;
+    box-shadow: 3px 3px 15px 5px #000000;
+    width: 50vw;
+    height: 23vh;
+    z-index: 0;
+}
+
+.bottomInformation{
+    bottom:0;
+}
