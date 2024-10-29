@@ -1,7 +1,22 @@
 
 @media (max-width: 768px) {
+
+    #apercu h3 {
+        width: 74vw;
+        height: 4dvh;
+    }
+    
+    iframe {
+        width: 74vw;
+        height: 19dvh;
+    }
+
+    .search-container-proposal{
+        width: 83vw;
+    }
+
     .mainScreenContainer{
-        max-height: 90vh;
+        max-height: 90dvh;
         overflow: scroll;
     }
     .homeButton{
@@ -9,8 +24,8 @@
         height: auto !important;
         z-index: 3;
         position:absolute;
-        bottom: 0vh;
-        right: calc(50vw - 6vh);
+        bottom: 0dvh;
+        right: calc(50vw - 6dvh);
     }
     
     .phoneContainer{
@@ -20,20 +35,17 @@
     .col-right {
         height: auto;
         flex-direction: row;
-        /* Désactiver la hauteur fixe en mode téléphone */
     }
 
     .col-left {
-        height: 10vh;
+        height: 10dvh;
         align-items: center;
         gap: 1vw;
-        /* 20% de la hauteur en mode téléphone */
         box-shadow: 5px 5px 15px 5px #000000;
     }
 
     .col-right {
-        height: 90vh;
-        /* 80% de la hauteur en mode téléphone */
+        height: 90dvh;
     }
 
     .btnPanel {
@@ -49,12 +61,10 @@
         justify-content: space-between;
         padding-left: 4vw;
         padding-right: 4vw;
-        /* gap: 2vw; */
     }
 
     .btnIcone{
-        height: 12vh;
-        /* position: absolute; */
+        height: 12dvh;
         margin-left: auto;
         margin-right: auto;
     }
