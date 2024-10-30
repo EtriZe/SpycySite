@@ -57,7 +57,7 @@ body {
 }
 
 .col-right {
-    background-color: #a32d80;
+    background-color: #b12d81;
 }
 
 .mainScreenContainer{
@@ -169,4 +169,29 @@ iframe {
 
 .bottomInformation{
     bottom:0;
+}
+
+.btnFlotantContainer{
+    display:none;
+}
+
+.btnFlotant{
+    height: 5vh;
+    width: 6vh;
+    background: none;
+    border: none;
+}
+
+.btnFlotant .btnIcone{
+    height: 4vh;
+}
+
+.btnGroup{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hide{
+    display: none !important;
 }

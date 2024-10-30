@@ -67,13 +67,19 @@
         height: 12dvh;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    .btnIcone{
         display:block !important;
     }
 
     .txtBtn{
         display:none;
+    }
+
+    .btnFlotantContainer{
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        bottom: 11vh;
+        gap: 2vh;
+        display: block;
     }
 }

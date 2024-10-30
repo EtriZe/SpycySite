@@ -20,7 +20,7 @@
         <div class="row full-height phoneContainer"> <!-- Colonne de gauche (20% largeur en desktop, 20% hauteur en mobile) -->
             <div class="col-12 col-md-2 col-left p-3">
 
-                <button class="active btnPanel homeButton" id="home">
+                <button class="active btnPanel homeButton navBtn" id="home">
                     <img class="btnIcone" src="icones/Loo_sans_fond.png"/>
                 </button>
                 <div class="btnContainer">
@@ -28,10 +28,16 @@
                         <img class="btnIcone" src="icones/logoCards.svg"/>
                         <div class="txtBtn">Collection</div>
                     </button>
-                    <button class="active mainBtnPanel" id="musicsProposal">
-                        <img class="btnIcone" src="icones/musicLogo.svg"/>
-                        <div class="txtBtn">Musiques</div>
-                    </button>
+                    <div class="btnGroup">
+                        <button class="active mainBtnPanel">
+                            <img class="btnIcone" src="icones/musicLogo.svg"/>
+                            <div class="txtBtn">Musiques</div>
+                        </button>
+                        <div class="btnFlotantContainer hide">
+                            <button class="btnFlotant navBtn" id="musicsProposal"><img class="btnIcone" src="icones/musicLogo.svg"/></button>
+                            <button class="btnFlotant navBtn" id="musicsGalerie"><img class="btnIcone" src="icones/musicLogo.svg"/></button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -54,11 +60,29 @@
 </body>
 
 <script>
+    //Affichage des boutons flotant
+    document.querySelectorAll(".mainBtnPanel").forEach(function(mainButton){
+        mainButton.addEventListener('click', function (e) {
+            let group = e.target.closest(".btnGroup");
+            let btnContainerFlotant = group.querySelector(".btnFlotantContainer");
+            btnContainerFlotant.classList.toggle("hide");
+        });
+    });
+
+    //Disparition des boutons flotant quand on clique
+    document.querySelectorAll(".btnFlotant.navBtn").forEach(function(navBtnFlotant){
+        navBtnFlotant.addEventListener('click', function (e) {
+            let container = e.target.closest(".btnFlotantContainer");
+            container.classList.toggle("hide");
+        });
+    });
+
+
     const MAINCONTENTDIV = document.getElementsByClassName("mainScreenContainer")[0];
     connectUSER();
 
     //Gestion Menus
-    document.querySelectorAll("button").forEach(button => {
+    document.querySelectorAll(".navBtn").forEach(button => {
 
         button.addEventListener('click', function (e) {
             //Remove all "active" class
