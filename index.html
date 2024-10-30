@@ -65,7 +65,12 @@
         mainButton.addEventListener('click', function (e) {
             let group = e.target.closest(".btnGroup");
             let btnContainerFlotant = group.querySelector(".btnFlotantContainer");
-            btnContainerFlotant.classList.toggle("hide");
+                btnContainerFlotant.classList.toggle("hide");
+            
+                btnContainerFlotant.querySelectorAll("button").forEach(function(btn){
+                    void btn.offsetWidth;
+                    btn.classList.toggle("animate");
+                }); 
         });
     });
 
@@ -74,6 +79,8 @@
         navBtnFlotant.addEventListener('click', function (e) {
             let container = e.target.closest(".btnFlotantContainer");
             container.classList.toggle("hide");
+           
+            
         });
     });
 

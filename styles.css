@@ -173,9 +173,8 @@ iframe {
 }
 
 .btnFlotantContainer .btnFlotant{
-    left: 50%;
-    top: 50%;
-    /* display:none; */
+    left: 0;
+    top: 37%;
 }
 
 .btnFlotant{
@@ -183,7 +182,7 @@ iframe {
     width: 6vh;
     background: none;
     border: none;
-    transition: transform 330ms ease-in-out;
+    transition: transform 330ms ease-in-out, opacity 330ms ease-in-out;;
     position: absolute;
     z-index: 0;
 }
@@ -201,17 +200,28 @@ iframe {
 }
 
 .hide{
-    display: none !important;
+    /* display: none !important; */
 }
 
-.btnFlotantContainer:not(.hide) .leftFlotant{
-    transform: translate(-3vh, -9vh);
+.btnFlotantContainer{
+    display:none;
 }
 
-.btnFlotantContainer:not(.hide) .rightFlotant{
-    transform: translate(3vh, -9vh);
+.leftFlotant,
+.rightFlotant{
+    /* display: none; */
+    opacity: 0;
+    transform: translate(0, 0);
 }
 
-.btnFlotantContainer.hide .btnFlotant{
-    transform: translate(-50%, -50%) !important;
+.leftFlotant.animate {
+    /* display: block !important; */
+    transform: translate(-3vh, -9vh); /* Point B (position finale) */
+    opacity: 1;
+}
+
+.rightFlotant.animate {
+    /* display: block !important; */
+    transform: translate(3vh, -9vh); /* Point B (position finale) */
+    opacity: 1;
 }
