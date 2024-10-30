@@ -21,6 +21,7 @@ body {
     font: inherit;
     cursor: pointer;
     outline: inherit;
+    z-index: 3;
 }
 
 .btnContainer{
@@ -171,8 +172,10 @@ iframe {
     bottom:0;
 }
 
-.btnFlotantContainer{
-    display:none;
+.btnFlotantContainer .btnFlotant{
+    left: 50%;
+    top: 50%;
+    /* display:none; */
 }
 
 .btnFlotant{
@@ -180,7 +183,12 @@ iframe {
     width: 6vh;
     background: none;
     border: none;
+    transition: transform 330ms ease-in-out;
+    position: absolute;
+    z-index: 0;
 }
+
+
 
 .btnFlotant .btnIcone{
     height: 4vh;
@@ -194,4 +202,16 @@ iframe {
 
 .hide{
     display: none !important;
+}
+
+.btnFlotantContainer:not(.hide) .leftFlotant{
+    transform: translate(-3vh, -9vh);
+}
+
+.btnFlotantContainer:not(.hide) .rightFlotant{
+    transform: translate(3vh, -9vh);
+}
+
+.btnFlotantContainer.hide .btnFlotant{
+    transform: translate(-50%, -50%) !important;
 }

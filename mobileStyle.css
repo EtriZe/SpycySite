@@ -78,8 +78,11 @@
         position: absolute;
         display: flex;
         flex-direction: row;
-        bottom: 11vh;
+        /* bottom: 11vh; */
         gap: 2vh;
         display: block;
+        width: 12vw;
+        height: 12vh;
+        z-index: 0;
     }
 }
