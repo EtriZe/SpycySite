@@ -10,11 +10,10 @@ html {
 
 #backgroundImage {
     position: absolute;
-    top: 0;
-    left: 20%;
-    width: 100%;
-    height: 100%;
-    background-repeat: round;
+    background-size: cover; /* Adapte l'image pour couvrir toute la zone sans déformation */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    background-position: center; /* Centre l'image */
+    background-attachment: fixed;
     filter: grayscale(28%) blur(7px);
     background-image: url(icones/fond.jpg);
 }

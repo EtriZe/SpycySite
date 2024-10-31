@@ -16,6 +16,7 @@
 </head> 
 
 <body>
+    <div id="backgroundImage"></div>
     <div class="container-fluid full-height">
         <div class="row full-height phoneContainer"> <!-- Colonne de gauche (20% largeur en desktop, 20% hauteur en mobile) -->
             <div class="col-12 col-md-2 col-left p-3">
@@ -79,8 +80,11 @@
         navBtnFlotant.addEventListener('click', function (e) {
             let container = e.target.closest(".btnFlotantContainer");
             container.classList.toggle("hide");
-           
             
+            container.querySelectorAll("button").forEach(function(btn){
+                void btn.offsetWidth;
+                btn.classList.toggle("animate");
+            }); 
         });
     });
 
