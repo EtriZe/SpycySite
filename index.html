@@ -12,38 +12,61 @@
     <script type="text/javascript" src="js/Client/ressources.js"></script>
     <link rel="icon" href="icones/Loo_sans_fond.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title> TooSpycySite </title>  
-</head> 
+    <title> TooSpycySite </title>
+</head>
 
 <body>
     <div id="backgroundImage"></div>
     <div class="container-fluid full-height">
-        <div class="row full-height phoneContainer"> <!-- Colonne de gauche (20% largeur en desktop, 20% hauteur en mobile) -->
+        <div class="row full-height phoneContainer">
+            <!-- Colonne de gauche (20% largeur en desktop, 20% hauteur en mobile) -->
             <div class="col-12 col-md-2 col-left p-3">
 
-                <button class="active btnPanel homeButton navBtn" id="home">
-                    <img class="btnIcone" src="icones/Loo_sans_fond.png"/>
+                <button class="active btnPanel homeButton" name-page="home">
+                    <img class="btnIcone" src="icones/Loo_sans_fond.png" />
                 </button>
                 <div class="btnContainer">
-                    <button class="active mainBtnPanel">
-                        <img class="btnIcone" src="icones/logoCards.svg"/>
-                        <div class="txtBtn">Collection</div>
-                    </button>
                     <div class="btnGroup">
-                        <button class="active mainBtnPanel">
-                            <img class="btnIcone" src="icones/musicLogo.svg"/>
-                            <div class="txtBtn">Musiques</div>
-                        </button>
+                        <div class="active mainBtnPanel">
+                            <img class="btnIcone" src="icones/logoCards.svg" />
+                            <div class="txtBtn">
+                                <span>Cartes</span>
+                                <div class="sousMenuLeftPanel hideLeft">
+                                    <button name-page="cardsCollection">Collection</button>
+                                    <button name-page="cardsOpening">Opening</button>
+                                </div>
+                            </div>
+                        </div>
                         <div class="btnFlotantContainer hide">
-                            <button class="btnFlotant navBtn leftFlotant" id="musicsProposal"><img class="btnIcone" src="icones/musicLogo.svg"/></button>
-                            <button class="btnFlotant navBtn rightFlotant" id="musicsGalerie"><img class="btnIcone" src="icones/musicLogo.svg"/></button>
+                            <button class="btnFlotant leftFlotant" name-page="cardsOpening"><img class="btnIcone"
+                                    src="icones/musicLogo.svg" /></button>
+                            <button class="btnFlotant rightFlotant" name-page="cardsCollection"><img class="btnIcone"
+                                    src="icones/musicLogo.svg" /></button>
+                        </div>
+                    </div>
+                    <div class="btnGroup">
+                        <div class="active mainBtnPanel">
+                            <img class="btnIcone" src="icones/musicLogo.svg" />
+                            <div class="txtBtn">
+                                <span>Musiques</span>
+                                <div class="sousMenuLeftPanel hideLeft">
+                                    <button name-page="musicsGalerie">Galerie</button>
+                                    <button name-page="musicsProposal">Propositions</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btnFlotantContainer hide">
+                            <button class="btnFlotant leftFlotant" name-page="musicsProposal"><img class="btnIcone"
+                                    src="icones/musicLogo.svg" /></button>
+                            <button class="btnFlotant rightFlotant" name-page="musicsGalerie"><img class="btnIcone"
+                                    src="icones/musicLogo.svg" /></button>
                         </div>
                     </div>
                 </div>
             </div>
 
 
-         <!-- Colonne de droite (80% largeur en desktop, 80% hauteur en mobile) -->
+            <!-- Colonne de droite (80% largeur en desktop, 80% hauteur en mobile) -->
             <div class="col-12 col-md-10 col-right">
                 <div class="h-100 d-flex justify-content-center align-items-center">
                     <div class="container-fluid mainScreenContainer">
@@ -54,37 +77,50 @@
 
         </div>
     </div>
-   
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 <script>
     //Affichage des boutons flotant
-    document.querySelectorAll(".mainBtnPanel").forEach(function(mainButton){
+    document.querySelectorAll(".mainBtnPanel").forEach(function (mainButton) {
         mainButton.addEventListener('click', function (e) {
+
+            closeAllSousMenu();
+
             let group = e.target.closest(".btnGroup");
             let btnContainerFlotant = group.querySelector(".btnFlotantContainer");
-                btnContainerFlotant.classList.toggle("hide");
-            
-                btnContainerFlotant.querySelectorAll("button").forEach(function(btn){
-                    void btn.offsetWidth;
-                    btn.classList.toggle("animate");
-                }); 
+
+            let leftPanelFlotant = group.querySelector(".sousMenuLeftPanel");
+            leftPanelFlotant.classList.toggle("hideLeft");
+
+            btnContainerFlotant.querySelectorAll("button").forEach(function (btn) {
+                void btn.offsetWidth;
+                btn.classList.toggle("animate");
+            });
         });
     });
 
+
     //Disparition des boutons flotant quand on clique
-    document.querySelectorAll(".btnFlotant.navBtn").forEach(function(navBtnFlotant){
+    document.querySelectorAll(".btnFlotant[name-page]").forEach(function (navBtnFlotant) {
         navBtnFlotant.addEventListener('click', function (e) {
+            closeAllSousMenu();
             let container = e.target.closest(".btnFlotantContainer");
             container.classList.toggle("hide");
-            
-            container.querySelectorAll("button").forEach(function(btn){
+
+            container.querySelectorAll("button").forEach(function (btn) {
                 void btn.offsetWidth;
                 btn.classList.toggle("animate");
-            }); 
+            });
         });
     });
 
@@ -93,7 +129,7 @@
     connectUSER();
 
     //Gestion Menus
-    document.querySelectorAll(".navBtn").forEach(button => {
+    document.querySelectorAll("[name-page]").forEach(button => {
 
         button.addEventListener('click', function (e) {
             //Remove all "active" class
@@ -105,15 +141,31 @@
             if (!button.parentNode.classList.contains("sousMenu")) {
                 closeAllTabs();
             }
-            openSousMenu(button);
             configureHTMLRoutes(button);
         });
     });
 
     function configureHTMLRoutes(button) {
-        let htmlFileName = button.id;
+        let htmlFileName = button.getAttribute("name-page");
         if (htmlFileName === "") return;
         setNewHTML(htmlFileName, MAINCONTENTDIV);
+    }
+
+
+    document.querySelector(".col-right").addEventListener('mouseover', function (event) {
+        closeAllSousMenu();
+    })
+
+    document.querySelector(".col-left").addEventListener('mouseover', function (event) {
+        if (event.target.classList.contains("col-left")) {
+            closeAllSousMenu();
+        }
+    })
+
+    function closeAllSousMenu() {
+        document.querySelectorAll(".sousMenuLeftPanel").forEach(function (sousMenu) {
+            if (!sousMenu.classList.contains("hideLeft")) sousMenu.classList.add("hideLeft");
+        })
     }
 </script>
 

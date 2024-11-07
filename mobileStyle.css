@@ -44,6 +44,7 @@
         align-items: center;
         gap: 1vw;
         box-shadow: 5px 5px 15px 5px #000000;
+        z-index: 1;
     }
 
     .col-right {
@@ -89,5 +90,36 @@
     #apercu {
         width: 330px;
         height: 215px;
+    }
+
+    #content{
+        grid-template-columns: 50% 50%;
+        max-height: 75dvh;
+    }
+
+    #content > div{
+        min-width: 90%;
+        height: 17vh;
+    }
+
+    .search-container{
+        width: 80vw
+    }
+
+    .favIcone{
+        max-width: 25%;
+    }
+
+    .pageChange{
+        width: 42vw;
+        bottom: 12dvh;
+    }
+
+    #rightPageImg{
+        width: 2vh;
+    }
+    
+    #leftPageImg{
+        width: 2vh;
     }
 }

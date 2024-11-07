@@ -221,6 +221,9 @@ function loadCardsCollection(){
 
 }
 
+function loadCardsOpening(){
+
+}
 const TWITCH_ICONE = '<img class="twitchIcone" src="icones/twitch-icon.svg"/>';
 
 //To change interface if user is connected or not

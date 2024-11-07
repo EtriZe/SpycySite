@@ -51,14 +51,3 @@ function closeAllTabs() {
         sousmenu.style.display = "none";
     });
 }
-
-
-function openSousMenu(menu) {
-    var sousMenu = menu.parentNode.querySelector(".sousMenu");
-    if (sousMenu === null) return; // Pas de sous menu
-    sousMenu.style.display = sousMenu.style.display === "none" ||
-        sousMenu.style.display === ""
-        ? "block" : "none";
-    sousMenu.classList.toggle('show');
-}
-
