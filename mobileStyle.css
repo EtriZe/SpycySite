@@ -122,4 +122,19 @@
     #leftPageImg{
         width: 2vh;
     }
+
+    .cardsContainer{
+        margin-top: 6vh;
+        width: 100vw;
+        grid-template-columns: auto auto auto;
+    }
+
+    .cardContainer{
+        grid-template-rows: 16vh 2vh;
+    }
+
+    .popup{
+        width: 40vh;
+        margin-top: 17vh;
+    }
 }

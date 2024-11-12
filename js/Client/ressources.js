@@ -218,7 +218,18 @@ function loadArtGalerie() {
 }
 
 function loadCardsCollection(){
-
+    let cards = document.querySelectorAll(".cardContainer");
+    let cardFullScreen = document.querySelector(".cardFullScreen");
+    if(cards !== null){
+        cards.forEach(card => {
+            let hrefButton = card.querySelector("a");
+            hrefButton.addEventListener("click", function(e){
+                let cardSrc = hrefButton.querySelector(".mainCard").src;
+                if(cardFullScreen !== null) cardFullScreen.src = cardSrc;
+            })
+        });
+    }
+    
 }
 
 function loadCardsOpening(){

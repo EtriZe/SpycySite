@@ -375,44 +375,104 @@ iframe {
 
 .mainCard{
     height: 100%;
-    padding-left: 10%;
-    padding-right: 10%;
+    /* padding-left: 10%; */
+    /* padding-right: 10%; */
 }
 
 .cardsContainer{
     display: grid;
     /* flex-wrap: wrap; */
     overflow: auto;
-    grid-template-columns: 15vw 15vw 15vw 15vw;
-    padding-top: 8vh;
-    /* height: 2000px; */
+    grid-template-columns: auto auto auto auto;
+    margin-top: 9vh;
+    height: auto;
     width: 100%;
     justify-content: center;
+    max-height: 91vh;
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
+    column-gap: 5%;
 }
 
 .cardContainer{
-    /* width: 25%; */
     display: grid;
-    /* flex-direction: column; */
-    /* height: 10%; */
-    grid-template-rows: 28vh 6Vh;
-    /* height: 19vh; */
+    grid-template-rows: 35vh 2vh;
 }
 
 .cardVersions{
     display: grid;
     flex-direction: row;
-    /* width: 100%; */
     justify-content: center;
-    /* height: fit-content; */
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: auto auto auto auto;
     height: 100%;
+    display: none;
 }
 
 .cardVersion{
-    height: 4%;
+    height: 3vh;
 }
 
 .unavailable{
-    
+    filter: contrast(0.3);
+}
+
+div:has(> .mainCard) {
+    display:flex;
+    justify-content: center;
+}
+
+.overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgb(61 58 58 / 70%);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    /* width: 80vw; */
+    /* height: 100dvh; */
+}
+
+.popup .cardViewerPopup {
+    /* max-height: 51%; */
+    overflow: auto;
+}
+
+.popup .close:hover {
+    color: #06D85F;
+}
+
+.popup .close {
+    position: absolute;
+    top: -3vh;
+    right: -3vh;
+    /* transition: all 200ms; */
+    font-size: 5vh;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.popup {
+    padding: 1vh;
+    background: #fff;
+    border-radius: 3vh;
+    width: 65vh;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vh;
+    margin-bottom: 6vh;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.cardFullScreen{
+    width:100%
 }
