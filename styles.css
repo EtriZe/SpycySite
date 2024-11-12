@@ -373,6 +373,34 @@ iframe {
     gap: 13px;
 }
 
+#twitchConnected {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-bottom-left-radius: 15px;
+    background-color: #333;
+    padding: 1vw;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    font-size: 1vw;
+    -webkit-box-shadow: 0 0 24px 5px #000000;
+    box-shadow: 0 0 24px 5px #000000;
+    z-index: 2;
+}
+
+#twitchConnected button {
+    text-decoration: none;
+    color: white;
+    background: none;
+    border: none;
+}
+
+.twitchIcone {
+    width: 1.5vw;
+}
+
 .mainCard{
     height: 100%;
     /* padding-left: 10%; */
