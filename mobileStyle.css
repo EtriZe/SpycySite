@@ -137,4 +137,12 @@
         width: 40vh;
         margin-top: 17vh;
     }
+
+    .twitchIcone{
+        width: 2vh;
+    }
+
+    #twitchConnected{
+        font-size: 2vh;
+    }
 }
