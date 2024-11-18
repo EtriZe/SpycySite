@@ -98,15 +98,14 @@
     //Affichage des boutons flotant
     document.querySelectorAll(".mainBtnPanel").forEach(function (mainButton) {
         mainButton.addEventListener('click', function (e) {
-
-            closeAllSousMenu();
-
             let group = e.target.closest(".btnGroup");
             let btnContainerFlotant = group.querySelector(".btnFlotantContainer");
+            closeAllSousMenu(btnContainerFlotant);
 
             let leftPanelFlotant = group.querySelector(".sousMenuLeftPanel");
             leftPanelFlotant.classList.toggle("hideLeft");
 
+            btnContainerFlotant.classList.toggle("hide");
             btnContainerFlotant.querySelectorAll("button").forEach(function (btn) {
                 void btn.offsetWidth;
                 btn.classList.toggle("animate");
@@ -118,10 +117,10 @@
     //Disparition des boutons flotant quand on clique
     document.querySelectorAll(".btnFlotant[name-page]").forEach(function (navBtnFlotant) {
         navBtnFlotant.addEventListener('click', function (e) {
-            closeAllSousMenu();
             let container = e.target.closest(".btnFlotantContainer");
-            container.classList.toggle("hide");
+            closeAllSousMenu(container);
 
+            container.classList.toggle("hide");
             container.querySelectorAll("button").forEach(function (btn) {
                 void btn.offsetWidth;
                 btn.classList.toggle("animate");
@@ -137,6 +136,7 @@
     document.querySelectorAll("[name-page]").forEach(button => {
 
         button.addEventListener('click', function (e) {
+            closeAllSousMenu(button);
             //Remove all "active" class
             document.querySelectorAll(".active").forEach(element => {
                 element.classList.remove("active");
@@ -167,9 +167,21 @@
         }
     })
 
-    function closeAllSousMenu() {
+    function closeAllSousMenu(clickedContainer) {
         document.querySelectorAll(".sousMenuLeftPanel").forEach(function (sousMenu) {
             if (!sousMenu.classList.contains("hideLeft")) sousMenu.classList.add("hideLeft");
+        })
+
+        document.querySelectorAll(".btnFlotantContainer").forEach(function (btnFlotantContainer){
+            if(clickedContainer != btnFlotantContainer){
+                if ( ! btnFlotantContainer.classList.contains("hide")){
+                btnFlotantContainer.classList.add("hide");
+                btnFlotantContainer.querySelectorAll("button").forEach(btnFlotant =>{
+                    console.log(btnFlotant);
+                    btnFlotant.classList.remove("animate");
+                })
+            } 
+            }
         })
     }
 </script>

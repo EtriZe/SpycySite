@@ -377,7 +377,7 @@ iframe {
     position: absolute;
     right: 0;
     top: 0;
-    border-bottom-left-radius: 15px;
+    border-bottom-left-radius: 1vh;
     background-color: #333;
     padding: 1vw;
     color: white;
