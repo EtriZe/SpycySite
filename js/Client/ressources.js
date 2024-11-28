@@ -1,4 +1,5 @@
 let ISUSERADMIN = false;
+const TWITCH_ICONE = '<img class="twitchIcone" src="icones/twitch-icon.svg"/>';
 
 function Load(HTMLFileName) {
     switch (HTMLFileName) {
@@ -229,13 +230,46 @@ function loadCardsCollection(){
             })
         });
     }
+}
+
+async function loadCardsOpening(){
+   //Récupérer le nombre de cartes disponibles
+    const PACKS_INFO = await getPacksInfos();
+    const NBRPACKS = PACKS_INFO.nbrpacks;
+
+    document.querySelector("#howmanypacks > .value").innerHTML = NBRPACKS;
     
+    document.querySelector("#howmanypacks > .value").addEventListener('click', function (e) {
+        testAPIAddPack();
+    })
 }
 
-function loadCardsOpening(){
+//INSERT new song by youtube url
+async function testAPIAddPack() {
+    console.log("TEST API");
+    const packData = {
+        howmuch: 3,
+        twitchid: 86309826
+    };
 
+    var result = await fetch('/cards/ADDNBRPACKS', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(packData)
+    }).then(response => {
+        return {
+            status : response.status,
+            message: response.statusText
+        };
+    }).catch((error) => {
+        console.error('Error:', error);
+    });   
+    
+    return result;
 }
-const TWITCH_ICONE = '<img class="twitchIcone" src="icones/twitch-icon.svg"/>';
+
 
 //To change interface if user is connected or not
 async function connectUSER() {
@@ -265,4 +299,30 @@ async function amIConnected() {
         error => console.error('Error occurred:', error)
     );
 }
+
+async function getUserInfos() {
+    const TWITCH_CONNECTION = await amIConnected();
+    if (TWITCH_CONNECTION.connected) {
+        const USER_INFOS = TWITCH_CONNECTION.userInfos;
+
+        return await fetch('/user/GETUSER/'+ USER_INFOS["data"][0].id).then(response => response.json()).then(data => {
+            return data;
+        }).catch(
+            error => console.error('Error occurred:', error)
+        );
+
+    } else {
+        console.log("Not connected to Twitch !");
+        return false;
+    }
+}
+
+async function getPacksInfos() {
+    return await fetch('/cards/GETNBRPACKS').then(response => response.json()).then(data => {
+        return data[0];
+    }).catch(
+        error => console.error('Error occurred:', error)
+    );
+}
+
 

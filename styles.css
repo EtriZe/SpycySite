@@ -504,3 +504,32 @@ div:has(> .mainCard) {
 .cardFullScreen{
     width:100%
 }
+
+#howmanypacks{
+    display:flex;
+    flex-direction: row;
+    position:absolute;
+    font-size: 15vh;
+    background-color: #333;
+    padding: 9px;
+    gap: 15px;
+    /* border-radius: 0vh; */
+    bottom: 0;
+    border-top-left-radius: 1vh;
+    border-top-right-radius: 1vh;
+    box-shadow: 3px -2px 14px 0px #000000;
+}
+
+#howmanypacks .value{
+    color:white;
+    font-size: 4vh;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+}
+
+#howmanypacks .text{
+    color:white;
+    font-size: 2vh;
+    margin: auto;
+}

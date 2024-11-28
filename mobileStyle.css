@@ -145,4 +145,16 @@
     #twitchConnected{
         font-size: 1.4vh;
     }
+
+    #howmanypacks{
+        bottom:10vh;
+    }
+
+    #howmanypacks .value{
+        font-size: 3vh;
+    }
+    
+    #howmanypacks .text{
+        font-size: 1.5vh;
+    }
 }

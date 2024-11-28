@@ -204,8 +204,9 @@ async function validateToken(user_access_token) {
                 'Authorization': `Bearer ${user_access_token}`,
             },
         });
+
         //Token Valide
-        return await true;
+        return await response.data;
     } catch (error) {
         console.error('Token invalide:', error);
         return await false;

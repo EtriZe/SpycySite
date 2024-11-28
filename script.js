@@ -4,6 +4,7 @@ const app = express(); // Connect and Create an Express Application
 const twitch = require('./js/Server/twitchOauth');
 const musics = require('./js/Server/BDD/musics');
 const user = require('./js/Server/BDD/user');
+const cards = require('./js/Server/BDD/cards');
 
 const path = require('path');
 
@@ -11,6 +12,7 @@ const path = require('path');
 app.use('/twitch', twitch.router);
 app.use('/musics', musics.router);
 app.use('/user', user.router);
+app.use('/cards', cards.router);
 
 app.use(express.static(__dirname + '/'));
 
