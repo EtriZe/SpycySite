@@ -230,6 +230,7 @@ function loadCardsCollection(){
             })
         });
     }
+
 }
 
 async function loadCardsOpening(){
@@ -237,15 +238,40 @@ async function loadCardsOpening(){
     const PACKS_INFO = await getPacksInfos();
     const NBRPACKS = PACKS_INFO.nbrpacks;
 
-    document.querySelector("#howmanypacks > .value").innerHTML = NBRPACKS;
+    let counterPacks = document.querySelector("#howmanypacks > .value");
+    counterPacks.innerHTML = NBRPACKS;
     
-    document.querySelector("#howmanypacks > .value").addEventListener('click', function (e) {
-        testAPIAddPack();
+    counterPacks.addEventListener('click', function (e) {
+        addPack();
     })
+
+
+    let pack = document.querySelector(".pack");
+    if(NBRPACKS === 0) pack.classList.add("noPack");
+    else {
+        pack.removeEventListener("click", openPack);
+        pack.addEventListener("click", openPack);
+    }
+
+    var cardTestFlip = document.querySelector('.cardTestFlip');
+    cardTestFlip.addEventListener( 'click', function() {
+        cardTestFlip.classList.toggle('is-flipped');
+    });
+    
 }
 
+function openPack(){
+    //Animation or delay for pack to open then disapear
+    // if(removePack(1)){
+    //     reloadNbrPacks(1);
+    //     document.querySelector(".packImage").classList.add("hide");
+    // }
+    
+}
+
+
 //INSERT new song by youtube url
-async function testAPIAddPack() {
+async function addPack() {
     console.log("TEST API");
     const packData = {
         howmuch: 3,
@@ -266,9 +292,53 @@ async function testAPIAddPack() {
     }).catch((error) => {
         console.error('Error:', error);
     });   
+
+    loadCardsOpening();
     
     return result;
 }
+
+function reloadNbrPacks(nbr){
+    let nbrPacksValue = document.querySelector("#howmanypacks .value");
+
+    nbrPacksValue.innerHTML = nbrPacksValue.innerHTML - nbr;
+}
+
+//INSERT new song by youtube url
+async function removePack(howMuchLess) {
+    // const TWITCH_CONNECTION = await amIConnected();
+    // let twitch_id = 0;
+    // if (TWITCH_CONNECTION.connected) {
+    //     const USER_INFOS = TWITCH_CONNECTION.userInfos;
+    //     twitch_id = USER_INFOS.data[0].id;
+    // }else{
+    //     console.log("Not connected to Twitch !");
+    //     return false;
+    // }
+
+    // const packData = {
+    //     howmuch: 1,
+    //     twitchid: twitch_id
+    // };
+
+    // var result = await fetch('/cards/REMOVENBRPACKS', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(packData)
+    // }).then(response => {
+    //     return true;
+    // }).catch((error) => {
+    //     return false;
+    // });   
+
+    // // loadCardsOpening();
+    // return result;
+}
+
+
+
 
 
 //To change interface if user is connected or not
@@ -300,22 +370,6 @@ async function amIConnected() {
     );
 }
 
-async function getUserInfos() {
-    const TWITCH_CONNECTION = await amIConnected();
-    if (TWITCH_CONNECTION.connected) {
-        const USER_INFOS = TWITCH_CONNECTION.userInfos;
-
-        return await fetch('/user/GETUSER/'+ USER_INFOS["data"][0].id).then(response => response.json()).then(data => {
-            return data;
-        }).catch(
-            error => console.error('Error occurred:', error)
-        );
-
-    } else {
-        console.log("Not connected to Twitch !");
-        return false;
-    }
-}
 
 async function getPacksInfos() {
     return await fetch('/cards/GETNBRPACKS').then(response => response.json()).then(data => {

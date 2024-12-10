@@ -24,12 +24,12 @@ router.get('/GETNBRPACKS',config.twitch.validateJWT, (req, res) => {
 });
 
 //Ajoute un nombre de cartes à l'utilisateur
-router.post('/ADDNBRPACKS/:howmuch/:twitchid',  (req, res) => {
-    const HOW_MUCH_MORE =  req.params.howmuch;
-    const TWITCH_ID =  req.params.twitchid;
+router.post('/ADDNBRPACKS',  (req, res) => {
+    const HOW_MUCH_MORE =  req.body.howmuch;
+    const TWITCH_ID =  req.body.twitchid;
 
     //Récupérer le nombre de pack
-    const query = "update public.packs set nbrpacks = (select nbrpacks from packs where iduser = (select iduser from public.user where twitchid = $1)) + $2 where iduser = (select iduser from public.user where twitchid = $1)";
+    const query = "UPDATE public.packs SET nbrpacks = nbrpacks + $2 WHERE iduser = ( SELECT iduser FROM public.user WHERE twitchid = $1 );";
     config.pool.query(query, [TWITCH_ID, HOW_MUCH_MORE],  (error, result) => {
         if (error) {
             res.status(500).send('Erreur lors de l\'ajout du nombre de paquets');
@@ -38,6 +38,23 @@ router.post('/ADDNBRPACKS/:howmuch/:twitchid',  (req, res) => {
         }
     });
 });
+
+//Supprime un nombre de cartes à l'utilisateur
+router.post('/REMOVENBRPACKS',  (req, res) => {
+    const HOW_MUCH_LESS =  req.body.howmuch;
+    const TWITCH_ID =  req.body.twitchid;
+
+    //Récupérer le nombre de pack
+    const query = "UPDATE public.packs SET nbrpacks = nbrpacks - $2 WHERE iduser = ( SELECT iduser FROM public.user WHERE twitchid = $1 );";
+    config.pool.query(query, [TWITCH_ID, HOW_MUCH_LESS],  (error, result) => {
+        if (error) {
+            res.status(500).send('Erreur lors de l\'ajout du nombre de paquets');
+        } else {
+            res.json(true);
+        }
+    });
+});
+
 
 
 module.exports = {
