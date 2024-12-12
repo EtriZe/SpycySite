@@ -7,8 +7,8 @@ const TWITCH = require('../twitchOauth');
 const POOL = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'spycysite',
-    password: 'admin',
+    database: 'spycy',
+    password: 'postgres',
 });
 
 

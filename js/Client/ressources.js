@@ -241,62 +241,89 @@ async function loadCardsOpening(){
     let counterPacks = document.querySelector("#howmanypacks > .value");
     counterPacks.innerHTML = NBRPACKS;
     
-    counterPacks.addEventListener('click', function (e) {
-        addPack();
-    })
+    // counterPacks.addEventListener('click', function (e) {
+    //     addPack();
+    // })
 
 
-    let pack = document.querySelector(".pack");
+    let pack = document.querySelector(".packImage");
     if(NBRPACKS === 0) pack.classList.add("noPack");
     else {
         pack.removeEventListener("click", openPack);
         pack.addEventListener("click", openPack);
     }
 
-    var cardTestFlip = document.querySelector('.cardTestFlip');
-    cardTestFlip.addEventListener( 'click', function() {
-        cardTestFlip.classList.toggle('is-flipped');
-    });
+    //Mettre le code ci-dessous la où les cartes vont spawn
+    var cards = document.querySelectorAll('.cardTestFlip');
+    cards.forEach(function(card){
+        card.addEventListener( 'click', function() {
+            if(card.classList.contains('is-flipped')){
+                card.classList.add('moveForNextCard')
+                card.classList.add('canDisplayDesign')
+            }
+            else card.classList.toggle('is-flipped');
+        });
+    })
+    
     
 }
 
-function openPack(){
-    //Animation or delay for pack to open then disapear
-    // if(removePack(1)){
-    //     reloadNbrPacks(1);
-    //     document.querySelector(".packImage").classList.add("hide");
-    // }
+//TODO ajouter des animations entre les hide 
+async function openPack(){
+    if(removePack(1)){
+        reloadNbrPacks(1);
+        let pack = document.querySelector(".packImage");
+        let newCards = document.querySelector(".newCards");
+    
+        pack.classList.add("hide");
+        newCards.classList.remove("hide");
+    }
     
 }
 
+//TODO ajouter des animations entre les hide 
+async function resetPackOpening(){
+    let pack = document.querySelector(".packImage");
+    let newCards = document.querySelector(".newCards");
 
-//INSERT new song by youtube url
-async function addPack() {
-    console.log("TEST API");
-    const packData = {
-        howmuch: 3,
-        twitchid: 86309826
-    };
+    const PACKS_INFO = await getPacksInfos();
+    const NBRPACKS = PACKS_INFO.nbrpacks;
 
-    var result = await fetch('/cards/ADDNBRPACKS', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(packData)
-    }).then(response => {
-        return {
-            status : response.status,
-            message: response.statusText
-        };
-    }).catch((error) => {
-        console.error('Error:', error);
-    });   
+    pack.classList.remove("hide");
+    newCards.classList.add("hide");
 
-    loadCardsOpening();
-    
-    return result;
+    if(NBRPACKS == 0) {
+        pack.classList.add(".noPack");
+    }
 }
+
+
+// //INSERT 
+// async function addPack() {
+//     const packData = {
+//         howmuch: 1,
+//         twitchid: 86309826
+//     };
+
+//     var result = await fetch('/cards/ADDNBRPACKS', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(packData)
+//     }).then(response => {
+//         return {
+//             status : response.status,
+//             message: response.statusText
+//         };
+//     }).catch((error) => {
+//         console.error('Error:', error);
+//     });   
+
+//     loadCardsOpening();
+    
+//     return result;
+// }
 
 function reloadNbrPacks(nbr){
     let nbrPacksValue = document.querySelector("#howmanypacks .value");
@@ -304,41 +331,38 @@ function reloadNbrPacks(nbr){
     nbrPacksValue.innerHTML = nbrPacksValue.innerHTML - nbr;
 }
 
-//INSERT new song by youtube url
+//REMOVE nbr of packs
 async function removePack(howMuchLess) {
-    // const TWITCH_CONNECTION = await amIConnected();
-    // let twitch_id = 0;
-    // if (TWITCH_CONNECTION.connected) {
-    //     const USER_INFOS = TWITCH_CONNECTION.userInfos;
-    //     twitch_id = USER_INFOS.data[0].id;
-    // }else{
-    //     console.log("Not connected to Twitch !");
-    //     return false;
-    // }
+    const TWITCH_CONNECTION = await amIConnected();
+    let twitch_id = 0;
+    if (TWITCH_CONNECTION.connected) {
+        const USER_INFOS = TWITCH_CONNECTION.userInfos;
+        twitch_id = USER_INFOS.data[0].id;
+    }else{
+        console.log("Not connected to Twitch !");
+        return false;
+    }
 
-    // const packData = {
-    //     howmuch: 1,
-    //     twitchid: twitch_id
-    // };
+    const packData = {
+        howmuch: 1,
+        twitchid: twitch_id
+    };
 
-    // var result = await fetch('/cards/REMOVENBRPACKS', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(packData)
-    // }).then(response => {
-    //     return true;
-    // }).catch((error) => {
-    //     return false;
-    // });   
+    var result = await fetch('/cards/REMOVENBRPACKS', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(packData)
+    }).then(response => {
+        return true;
+    }).catch((error) => {
+        return false;
+    });   
 
-    // // loadCardsOpening();
-    // return result;
+    // loadCardsOpening();
+    return result;
 }
-
-
-
 
 
 //To change interface if user is connected or not

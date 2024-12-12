@@ -63,6 +63,7 @@ router.post('/INSERT', config.twitch.validateJWT, async (req, res) => {
     // Exécuter la requête avec les valeurs fournies
     config.pool.query(query, [pseudo, url], (error, result) => {
         if (error) {
+            console.log(error);
             res.statusMessage = "Erreur avec la base de données";
             return res.status(400).end();
         }

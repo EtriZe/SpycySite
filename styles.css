@@ -553,7 +553,7 @@ div:has(> .mainCard) {
 }
 
 .cardTestFlip {
-    position: relative;
+    position: absolute;
     width: 35vh;
     height: 49vh;
     cursor: pointer;
@@ -564,6 +564,34 @@ div:has(> .mainCard) {
 
 .cardTestFlip.is-flipped {
     transform: translateX(-100%) rotateY(-180deg);
+    left:0;
+}
+
+.card1.moveForNextCard{
+    transform: translateX(-250%) rotateY(-180deg);
+}
+
+.card2.moveForNextCard{
+    transform: translateX(50%) rotateY(-180deg);
+}
+
+.card3.moveForNextCard{
+    transform: translateX(-100%) rotateY(-180deg);
+}
+
+.card1{
+    z-index: 3;
+    left: -10px;
+}
+
+.card2{
+    z-index: 2;
+    left: 0px;
+}
+
+.card3{
+    z-index: 1;
+    left: 10px;
 }
 
 .card__face {
@@ -589,4 +617,8 @@ div:has(> .mainCard) {
     background-image: url("cartes/poivron_1.png");
     transform: rotateY(180deg);
     background-size: cover;
+}
+
+.packImage{
+    width: 55vh;
 }
