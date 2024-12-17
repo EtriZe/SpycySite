@@ -1,8 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+GB+J+Guides:ital@0;1&family=Quicksand:wght@300..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 html,
 body {
     height: 100%;
     margin: 0;
     overflow: hidden;
+    
+}
+
+*{
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 }
 
 .btnPanel {
@@ -22,7 +32,7 @@ body {
     font: inherit;
     cursor: pointer;
     outline: inherit;
-    height: 8vh;
+    height: 100%;
     z-index: 3;
 }
 
@@ -30,6 +40,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: end;
+    /* height: fit-content; */
+    gap: 3vh;
 }
 
 .btnIcone {
@@ -51,6 +63,13 @@ body {
     font-size: 3vh;
     font-weight: bold;
     position: relative;
+    height: 100%;
+    text-align: center;
+    width: 100%;
+    !;
+    
+    !i;
+    !;
 }
 
 .full-height {
@@ -210,6 +229,7 @@ iframe {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 
 .hide {
@@ -253,26 +273,26 @@ iframe {
 }
 
 .sousMenuLeftPanel {
-    position: absolute;
+    /* position: absolute; */
     left: 120%;
     display: flex;
     flex-direction: column;
     top: -25%;
-    background-color: #333;
-    padding: 1vh;
+    background-color: #5f5f5f;
+    /* padding: 1vh; */
     border-radius: 1vh;
     /* border: 1px solid white; */
-    box-shadow: 7px 4px 14px 0px #000000;
+    box-shadow: inset 9px 1px 14px 0px #000000;
+    width: 100%;
+    text-align: center;
 }
 
 .sousMenuLeftPanel button {
     border: none;
     color: white;
     background: none;
-    text-align: left;
-    font-weight: bold;
-    /* border: 1px solid white; */
-    /* box-shadow: 8px 19px 14px 0px #000000; */
+    text-align: center;
+    width: 14vw;
 }
 
 .hideLeft {
@@ -621,4 +641,20 @@ div:has(> .mainCard) {
 
 .packImage{
     width: 55vh;
+}
+
+#btnContainerEndOpening{
+    position: absolute;
+    z-index: 1;
+    top: 10vh;
+}
+
+#endOpening{
+    color: white;
+    background-color: #333;
+    border-radius: 1vh;
+    font-size: 3vh;
+    padding: 1vh;
+    border: none;
+    box-shadow: 3px -2px 14px 0px #000000;
 }

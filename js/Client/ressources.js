@@ -241,10 +241,6 @@ async function loadCardsOpening(){
     let counterPacks = document.querySelector("#howmanypacks > .value");
     counterPacks.innerHTML = NBRPACKS;
     
-    // counterPacks.addEventListener('click', function (e) {
-    //     addPack();
-    // })
-
 
     let pack = document.querySelector(".packImage");
     if(NBRPACKS === 0) pack.classList.add("noPack");
@@ -261,11 +257,30 @@ async function loadCardsOpening(){
                 card.classList.add('moveForNextCard')
                 card.classList.add('canDisplayDesign')
             }
-            else card.classList.toggle('is-flipped');
+            else {
+                card.classList.toggle('is-flipped');
+                if(card.classList.contains("card3")){
+                    let btnTerminer = document.querySelector("#endOpening");
+                    btnTerminer.classList.toggle("hide");
+                    btnTerminer.removeEventListener("click", resetScreenOpeningCards);
+                    btnTerminer.addEventListener('click', resetScreenOpeningCards)
+                }
+            }
         });
     })
     
     
+}
+
+function resetScreenOpeningCards(){
+    let newCards = document.querySelector(".newCards");
+    newCards.remove(); 
+
+    let btnTerminer = document.querySelector("#endOpening");
+    btnTerminer.classList.toggle("hide");
+
+    let pack = document.querySelector(".packImage");
+    pack.classList.remove("hide");
 }
 
 //TODO ajouter des animations entre les hide 

@@ -97,7 +97,7 @@
 <script>
     //Affichage des boutons flotant
     document.querySelectorAll(".mainBtnPanel").forEach(function (mainButton) {
-        mainButton.addEventListener('click', function (e) {
+        mainButton.addEventListener('mouseover', function (e) {
             let group = e.target.closest(".btnGroup");
             let btnContainerFlotant = group.querySelector(".btnFlotantContainer");
             closeAllSousMenu(btnContainerFlotant);
