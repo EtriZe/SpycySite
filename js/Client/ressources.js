@@ -286,6 +286,8 @@ function resetScreenOpeningCards(){
 //TODO ajouter des animations entre les hide 
 async function openPack(){
     if(removePack(1)){
+        const NEW_CARDS = await getRandomCards();
+        console.log(NEW_CARDS);
         reloadNbrPacks(1);
         let pack = document.querySelector(".packImage");
         let newCards = document.querySelector(".newCards");
@@ -377,6 +379,15 @@ async function removePack(howMuchLess) {
 
     // loadCardsOpening();
     return result;
+}
+
+//REMOVE nbr of packs
+async function getRandomCards() {
+    return await fetch('/cards/GETRANDOMCARDS').then(response => response.json()).then(data => {
+        return data;
+    }).catch(
+        error => console.error('Error occurred:', error)
+    );
 }
 
 

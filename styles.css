@@ -628,13 +628,13 @@ div:has(> .mainCard) {
 
 .card__face--front {
     /* background: red; */
-    background-image: url("cartes/dos_carte_1.png");
+    /* background-image: url("cartes/dos_carte_1.png"); */
     background-size: cover;
 }
 
 .card__face--back {
     /* background: blue; */
-    background-image: url("cartes/poivron_1.png");
+    /* background-image: url("cartes/poivron_1.png"); */
     transform: rotateY(180deg);
     background-size: cover;
 }
@@ -657,4 +657,8 @@ div:has(> .mainCard) {
     padding: 1vh;
     border: none;
     box-shadow: 3px -2px 14px 0px #000000;
+}
+
+.cardImg{
+    width:35vh;
 }
