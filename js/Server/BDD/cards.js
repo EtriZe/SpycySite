@@ -24,42 +24,77 @@ router.get('/GETNBRPACKS',config.twitch.validateJWT, (req, res) => {
 });
 
 //Récupère le nombre de paquets de cartes ouvrable
-router.get('/GETRANDOMCARDS',config.twitch.validateJWT, (req, res) => {
-    const TWITCH_ID =  req.user.id;
+router.get('/GETRANDOMCARDS', config.twitch.validateJWT, async (req, res) => {
+    const TWITCH_ID = req.user.id;
 
-    //Récupérer le nombre de pack
-    const query = "SELECT name, proba FROM carte";
-    config.pool.query(query, [],  (error, result) => {
-        if (error) {
-            res.status(500).send('Erreur lors de la récupération du nombre de paquets');
-        } else {
-            const resultat = [];
-            for(let i = 0; i < 3; i++){
-                resultat.push(getOneCard(result.rows));
-            }
-            res.json(resultat);
+    try {
+        // Récupérer les cartes
+        const queryCards = "SELECT idcarte, name, proba FROM carte";
+        const [cardsResult] = await config.pool.query(queryCards);
+
+        const selectedCards = [];
+        for (let i = 0; i < 3; i++) {
+            selectedCards.push(getOneCard(cardsResult));
         }
-    });
+
+        // Récupérer les versions des cartes précédentes
+        const queryVers = "SELECT idcarteversion, idproba FROM carteversion";
+        const [versionsResult] = await config.pool.query(queryVers);
+
+        const selectedVersions = [];
+        for (let i = 0; i < 3; i++) {
+            selectedVersions.push(getVersions(versionsResult));
+        }
+
+        // Envoyer la réponse combinée
+        res.json({
+            cards: selectedCards,
+            versions: selectedVersions,
+        });
+    } catch (error) {
+        console.error("Erreur lors des requêtes SQL :", error);
+        res.status(500).json({ error: "Erreur lors de l'exécution des requêtes SQL." });
+    }
 });
 
 function getOneCard(rows){
     const rand = Math.random(); 
-    let roundedRand = Math.round(rand * 1000) / 1000;
 
-    let nameCard = "";
+    let idCard = 0;
     let cumulative = 0;
-    rows.forEach(row => {
-        let proba = Number(row.proba);
-        
-        cumulative = cumulative + proba;
-        console.log(roundedRand ,  '<=' ,  (Math.round(cumulative * 1000) / 1000));
+    let proba = 0;
+    for (let row of rows) {
+        proba = Number(row.proba);
+    
+        cumulative += proba;
 
-        if(roundedRand <= Math.round(cumulative * 1000) / 1000){
-            nameCard =  row.name;
-            return;
+        if (rand <= cumulative) {
+            idCard = row.idcarte;
+            break;
         }
-    });
-    return nameCard;
+    }
+
+    return idCard;
+}
+
+function getVersions(rows){
+    const rand = Math.random(); 
+
+    let numVersion = 0;
+    let cumulative = 0;
+    let proba = 0;
+    for (let row of rows) {
+        proba = Number(row.proba);
+    
+        cumulative += proba;
+
+        if (rand <= cumulative) {
+            numVersion = row.idcarteversion;
+            break;
+        }
+    }
+
+    return numVersion;
 }
 
 //Ajoute un nombre de cartes à l'utilisateur
