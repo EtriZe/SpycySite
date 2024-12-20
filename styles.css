@@ -447,12 +447,14 @@ iframe {
     overflow: scroll;
     overflow-y: auto;
     overflow-x: auto;
-    column-gap: 5%;
+    /* column-gap: 5%; */
 }
 
 .cardContainer {
     display: grid;
     grid-template-rows: 35vh 2vh;
+    margin-left: 6vh;
+    margin-right: 6vh;
 }
 
 .cardVersions {
@@ -572,7 +574,7 @@ div:has(> .mainCard) {
     perspective: 600px;
 }
 
-.cardTestFlip {
+.cardFlip {
     position: absolute;
     width: 35vh;
     height: 49vh;
@@ -582,7 +584,7 @@ div:has(> .mainCard) {
     transition: transform 1s;
 }
 
-.cardTestFlip.is-flipped {
+.cardFlip.is-flipped {
     transform: translateX(-100%) rotateY(-180deg);
     left:0;
 }
@@ -626,13 +628,13 @@ div:has(> .mainCard) {
     backface-visibility: hidden;
 }
 
-.card__face--front {
+.card__face--back {
     /* background: red; */
     /* background-image: url("cartes/dos_carte_1.png"); */
     background-size: cover;
 }
 
-.card__face--back {
+.card__face--front {
     /* background: blue; */
     /* background-image: url("cartes/poivron_1.png"); */
     transform: rotateY(180deg);
@@ -661,4 +663,8 @@ div:has(> .mainCard) {
 
 .cardImg{
     width:35vh;
+}
+
+.template{
+    display:none;
 }

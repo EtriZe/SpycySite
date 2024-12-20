@@ -218,9 +218,26 @@ function loadArtGalerie() {
     console.log("Load Art Galerie");
 }
 
-function loadCardsCollection(){
+async function loadCardsCollection(){
+    let htmlCollection = document.querySelector(".template .cardContainer").innerHTML;
+    console.log(htmlCollection);
+
+    //Remplissage de cards
+    const MY_CARDS = await getMyCollection();
+    MY_CARDS.forEach(function(card){
+        let newHtml = htmlCollection.replace("cardFaceREPLACE", card.dessin);
+
+        let newCardContainer = document.createElement("div");
+        newCardContainer.classList.add("cardContainer");
+        newCardContainer.innerHTML = newHtml;
+
+        let cardsContainer = document.querySelector(".cardsContainer");
+        cardsContainer.appendChild(newCardContainer);
+    });
+
     let cards = document.querySelectorAll(".cardContainer");
     let cardFullScreen = document.querySelector(".cardFullScreen");
+
     if(cards !== null){
         cards.forEach(card => {
             let hrefButton = card.querySelector("a");
@@ -250,7 +267,7 @@ async function loadCardsOpening(){
     }
 
     //Mettre le code ci-dessous la où les cartes vont spawn
-    var cards = document.querySelectorAll('.cardTestFlip');
+    var cards = document.querySelectorAll('.cardFlip');
     cards.forEach(function(card){
         card.addEventListener( 'click', function() {
             if(card.classList.contains('is-flipped')){
@@ -274,7 +291,13 @@ async function loadCardsOpening(){
 
 function resetScreenOpeningCards(){
     let newCards = document.querySelector(".newCards");
-    newCards.remove(); 
+    newCards.classList.add("hide");
+
+    document.querySelectorAll(".cardFlip").forEach(function(cardDom){
+        cardDom.classList.remove("is-flipped");
+        cardDom.classList.remove("moveForNextCard");
+        cardDom.classList.remove("canDisplayDesign");
+    })
 
     let btnTerminer = document.querySelector("#endOpening");
     btnTerminer.classList.toggle("hide");
@@ -285,17 +308,21 @@ function resetScreenOpeningCards(){
 
 //TODO ajouter des animations entre les hide 
 async function openPack(){
-    if(removePack(1)){
-        const NEW_CARDS = await getRandomCards();
-        console.log(NEW_CARDS);
-        reloadNbrPacks(1);
-        let pack = document.querySelector(".packImage");
-        let newCards = document.querySelector(".newCards");
-    
-        pack.classList.add("hide");
-        newCards.classList.remove("hide");
+
+    const NEW_CARDS = await getRandomCards();
+    removePack(1)
+    reloadNbrPacks(1);
+    let pack = document.querySelector(".packImage");
+    let newCards = document.querySelector(".newCards");
+
+    //Création de l'HTML qui affiche les cartes
+    for(let i = 0; i < 3; i++){
+        let cardFrontImg = document.querySelector('.card'+(i+1)+' .card__face--front .cardImg');
+        cardFrontImg.src = NEW_CARDS[i].length > 0 ? NEW_CARDS[i][0].dessin : "cartes/dos_carte_1.png";
     }
-    
+
+    pack.classList.add("hide");
+    newCards.classList.remove("hide");
 }
 
 //TODO ajouter des animations entre les hide 
@@ -430,3 +457,10 @@ async function getPacksInfos() {
 }
 
 
+async function getMyCollection() {
+    return await fetch('/cards/GETMYCARDS').then(response => response.json()).then(data => {
+        return data;
+    }).catch(
+        error => console.error('Error occurred:', error)
+    );
+}
