@@ -253,12 +253,11 @@ async function loadCardsCollection(){
 async function loadCardsOpening(){
    //Récupérer le nombre de cartes disponibles
     const PACKS_INFO = await getPacksInfos();
-    const NBRPACKS = PACKS_INFO.nbrpacks;
+    const NBRPACKS = PACKS_INFO === undefined ? 0 : PACKS_INFO.nbrpacks;
 
     let counterPacks = document.querySelector("#howmanypacks > .value");
     counterPacks.innerHTML = NBRPACKS;
     
-
     let pack = document.querySelector(".packImage");
     if(NBRPACKS === 0) pack.classList.add("noPack");
     else {
@@ -285,8 +284,6 @@ async function loadCardsOpening(){
             }
         });
     })
-    
-    
 }
 
 function resetScreenOpeningCards(){

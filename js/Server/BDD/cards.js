@@ -13,7 +13,7 @@ router.get('/GETNBRPACKS',config.twitch.validateJWT, (req, res) => {
     const TWITCH_ID =  req.user.id;
 
     //Récupérer le nombre de pack
-    const query = "select nbrpacks from public.packs where iduser = (select iduser from public.user where twitchid = $1)";
+    const query = "SELECT nbrpacks FROM public.packs WHERE iduser = (SELECT iduser FROM public.user WHERE twitchid = $1)";
     config.pool.query(query, [TWITCH_ID],  (error, result) => {
         if (error) {
             res.status(500).send('Erreur lors de la récupération du nombre de paquets');
@@ -28,7 +28,7 @@ router.get('/GETMYCARDS',config.twitch.validateJWT, (req, res) => {
     const TWITCH_ID =  req.user.id;
 
     //Récupérer le nombre de pack
-    const query = "select dessin from collection inner join cartedessin on collection.idcarte = cartedessin.idcarte and collection.idcarteversion = cartedessin.idcarteversion where collection.iduser = (select iduser from public.user where twitchid = $1)";
+    const query = "SELECT dessin FROM collection INNER JOIN cartedessin ON collection.idcarte = cartedessin.idcarte and collection.idcarteversion = cartedessin.idcarteversion WHERE collection.iduser = (SELECT iduser FROM public.user WHERE twitchid = $1)";
     config.pool.query(query, [TWITCH_ID],  (error, result) => {
         if (error) {
             res.status(500).send('Erreur lors de la récupération du nombre de paquets');
@@ -67,7 +67,7 @@ router.get('/GETRANDOMCARDS', config.twitch.validateJWT, async (req, res) => {
 
         for (let i = 0; i < 3; i++) {
             // Appliquer les cartes à la collection de l'utilisateur
-            const queryInsert = "INSERT INTO public.collection (iduser,idcarte,idcarteversion) VALUES ((select iduser from public.user where twitchid = $1),$2,$3);";
+            const queryInsert = "INSERT INTO public.collection (iduser,idcarte,idcarteversion) VALUES ((SELECT iduser FROM public.user WHERE twitchid = $1),$2,$3);";
             config.pool.query(queryInsert, [TWITCH_ID, selectedCards[i], selectedVersions[i]]);
 
             // Appliquer les cartes à la collection de l'utilisateur

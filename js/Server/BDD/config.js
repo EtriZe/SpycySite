@@ -8,7 +8,7 @@ const POOL = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'spycy',
-    password: 'postgres',
+    password: 'admin',
 });
 
 
