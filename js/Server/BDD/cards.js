@@ -16,7 +16,8 @@ router.get('/GETNBRPACKS',config.twitch.validateJWT, (req, res) => {
     const query = "SELECT nbrpacks FROM public.packs WHERE iduser = (SELECT iduser FROM public.user WHERE twitchid = $1)";
     config.pool.query(query, [TWITCH_ID],  (error, result) => {
         if (error) {
-            res.status(500).send('Erreur lors de la récupération du nombre de paquets');
+            res.statusMessage = 'Erreur lors de la récupération du nombre de paquets';        
+            res.status(400).end();
         } else {
             res.json(result.rows);
         }
@@ -31,7 +32,8 @@ router.get('/GETMYCARDS',config.twitch.validateJWT, (req, res) => {
     const query = "SELECT dessin FROM collection INNER JOIN cartedessin ON collection.idcarte = cartedessin.idcarte and collection.idcarteversion = cartedessin.idcarteversion WHERE collection.iduser = (SELECT iduser FROM public.user WHERE twitchid = $1)";
     config.pool.query(query, [TWITCH_ID],  (error, result) => {
         if (error) {
-            res.status(500).send('Erreur lors de la récupération du nombre de paquets');
+            res.statusMessage = 'Erreur lors de la récupération du nombre de paquets';        
+            res.status(400).end();
         } else {
             res.json(result.rows);
         }
@@ -82,7 +84,8 @@ router.get('/GETRANDOMCARDS', config.twitch.validateJWT, async (req, res) => {
         res.json(cardsDesignResult);
     } catch (error) {
         console.error("Erreur lors des requêtes SQL :", error);
-        res.status(500).json({ error: "Erreur lors de l'exécution des requêtes SQL." });
+        res.statusMessage = 'Erreur lors de la récupération des paquets';        
+        res.status(400).end();
     }
 });
 
@@ -128,14 +131,15 @@ function getVersions(rows){
 
 //Ajoute un nombre de cartes à l'utilisateur
 router.post('/ADDNBRPACKS',  (req, res) => {
-    const HOW_MUCH_MORE =  req.body.howmuch;
+    // const HOW_MUCH_MORE =  req.body.howmuch;
+    const HOW_MUCH_MORE =  1;
     const TWITCH_ID =  req.body.twitchid;
 
     //Récupérer le nombre de pack
     const query = "UPDATE public.packs SET nbrpacks = nbrpacks + $2 WHERE iduser = ( SELECT iduser FROM public.user WHERE twitchid = $1 );";
     config.pool.query(query, [TWITCH_ID, HOW_MUCH_MORE],  (error, result) => {
         if (error) {
-            res.status(500).send('Erreur lors de l\'ajout du nombre de paquets');
+            res.status(400).send('Erreur lors de l\'ajout du nombre de paquets');
         } else {
             res.json(true);
         }
@@ -144,14 +148,15 @@ router.post('/ADDNBRPACKS',  (req, res) => {
 
 //Supprime un nombre de cartes à l'utilisateur
 router.post('/REMOVENBRPACKS',  (req, res) => {
-    const HOW_MUCH_LESS =  req.body.howmuch;
+    // const HOW_MUCH_LESS =  req.body.howmuch;
+    const HOW_MUCH_LESS =  1;
     const TWITCH_ID =  req.body.twitchid;
 
     //Récupérer le nombre de pack
     const query = "UPDATE public.packs SET nbrpacks = nbrpacks - $2 WHERE iduser = ( SELECT iduser FROM public.user WHERE twitchid = $1 );";
     config.pool.query(query, [TWITCH_ID, HOW_MUCH_LESS],  (error, result) => {
         if (error) {
-            res.status(500).send('Erreur lors de l\'ajout du nombre de paquets');
+            res.status(400).send('Erreur lors de l\'ajout du nombre de paquets');
         } else {
             res.json(true);
         }

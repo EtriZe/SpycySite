@@ -137,7 +137,8 @@ router.get('/callback', async (req, res) => {
 
     } catch (error) {
         console.error('Erreur lors de l\'échange du code:', error);
-        res.status(500).send('Erreur lors de l\'échange du code');
+        res.statusMessage = "Erreur lors de l\'échange du code";        
+        res.status(400).end();
     }
 });
 

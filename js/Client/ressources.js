@@ -97,9 +97,7 @@ async function btnProposerFeedback(btn, response) {
 
 function loadMusicGalerie(page_number) {
 
-    let pseudoSearchValue = document.querySelector(".pseudoSearch-input").value === "" ? "0" : document.querySelector(".pseudoSearch-input").value;
-    fetch('/musics/GET/'+ page_number + '/' + pseudoSearchValue).then(response => response.json()).then(data => {
-
+    fetch('/musics/GET/'+ page_number).then(response => response.json()).then(data => {
         if(data.length !== 0) {
             document.querySelector("#page-number").innerHTML = page_number;
         }
@@ -307,8 +305,8 @@ function resetScreenOpeningCards(){
 async function openPack(){
 
     const NEW_CARDS = await getRandomCards();
-    removePack(1)
-    reloadNbrPacks(1);
+    removePack()
+    reloadNbrPacks();
     let pack = document.querySelector(".packImage");
     let newCards = document.querySelector(".newCards");
 
@@ -339,41 +337,14 @@ async function resetPackOpening(){
 }
 
 
-// //INSERT 
-// async function addPack() {
-//     const packData = {
-//         howmuch: 1,
-//         twitchid: 86309826
-//     };
-
-//     var result = await fetch('/cards/ADDNBRPACKS', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(packData)
-//     }).then(response => {
-//         return {
-//             status : response.status,
-//             message: response.statusText
-//         };
-//     }).catch((error) => {
-//         console.error('Error:', error);
-//     });   
-
-//     loadCardsOpening();
-    
-//     return result;
-// }
-
-function reloadNbrPacks(nbr){
+function reloadNbrPacks(){
     let nbrPacksValue = document.querySelector("#howmanypacks .value");
 
-    nbrPacksValue.innerHTML = nbrPacksValue.innerHTML - nbr;
+    nbrPacksValue.innerHTML = nbrPacksValue.innerHTML - 1;
 }
 
 //REMOVE nbr of packs
-async function removePack(howMuchLess) {
+async function removePack() {
     const TWITCH_CONNECTION = await amIConnected();
     let twitch_id = 0;
     if (TWITCH_CONNECTION.connected) {
@@ -422,6 +393,7 @@ async function connectUSER() {
         const USER_INFOS = TWITCH_CONNECTION.userInfos;
         ISUSERADMIN = USER_INFOS.data[0].isAdmin;
         const TWITCH_CONNECTED_DIV = document.getElementById("twitchConnected");
+
         TWITCH_CONNECTED_DIV.innerHTML = USER_INFOS.data[0].display_name + TWITCH_ICONE;
         TWITCH_CONNECTED_DIV.title = "You are connected !";
     } else {

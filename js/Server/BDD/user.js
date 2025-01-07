@@ -14,15 +14,18 @@ router.post('/ADDUSER', config.twitch.validateJWT, (req, res) => {
     const TWITCH_ID =  req.body.id;
     
     if(PSEUDO === undefined) return;
+
+   
     const query = "INSERT INTO public.user(twitchname, twitchid) SELECT $1, $2 WHERE NOT EXISTS ( SELECT iduser FROM public.user WHERE twitchId = $2);";
     config.pool.query(query, [PSEUDO, TWITCH_ID],  (error, result) => {
         if (error) {
-            res.status(500).send('Problème lors de l\'ajout de l\'utilisateur dans la base de données');
+            res.status(400).send('Problème lors de l\'ajout de l\'utilisateur dans la base de données : Pseudo : '+ PSEUDO + 'TWITCH ID :' + TWITCH_ID);
+           
         } else {
             const queryPacks = "INSERT INTO public.packs(iduser, nbrpacks) VALUES((select iduser from public.user where twitchid = $1), 0);";
             config.pool.query(queryPacks, [TWITCH_ID],  (errorPacks, resultPacks) => {
                 if (error) {
-                    res.status(500).send('Problème lors de l\'ajout de l\'utilisateur dans la base des packs');
+                    res.status(400).send('Problème lors de l\'ajout de l\'utilisateur dans la base des packs');
                 } else {
                     res.json(true);
                 }
@@ -39,7 +42,7 @@ router.get('/GETUSER', config.twitch.validateJWT,  (req, res) => {
     config.pool.query(query, [TWITCH_ID],  (error, result) => {
         if (error) {
             console.log('Error occurred:', error);
-            res.status(500).send('An error occurred while retrieving data from the database.');
+            res.status(400).send('An error occurred while retrieving data from the database.');
         } else {
             res.json(result.rows);
         }
