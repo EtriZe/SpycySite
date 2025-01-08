@@ -1,7 +1,7 @@
 let ISUSERADMIN = false;
 const TWITCH_ICONE = '<img class="twitchIcone" src="icones/twitch-icon.svg"/>';
 
-function Load(HTMLFileName) {
+async function Load(HTMLFileName) {
     switch (HTMLFileName) {
         case "home":
             loadHome();
@@ -432,4 +432,14 @@ async function getMyCollection() {
     }).catch(
         error => console.error('Error occurred:', error)
     );
+}
+
+
+async function canAccessPage(){
+    let isConnected = await amIConnected();
+
+    if(isConnected.connected === undefined) return false;
+    if(isConnected.connected === false)return false;
+    return true;
+
 }

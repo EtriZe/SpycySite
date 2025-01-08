@@ -14,15 +14,11 @@ dotenv.config();
 // Route handler for GET musics data 
 router.get('/GET/:page', config.twitch.validateJWT, (req, res) => {
     const PAGE = req.params.page;
-    const TWITCH_ID = req.user.id;
-
     const LIMIT = 9;
     const MIN_ID = LIMIT * (PAGE - 1);
-    let sqlValues = [LIMIT, MIN_ID, TWITCH_ID];
-    let searchOptions = " WHERE public.user.iduser = (SELECT public.user.iduser FROM public.user WHERE twitchid = $3)";
 
-    const query = 'SELECT musics.*, public.user.twitchname FROM musics INNER JOIN public.user ON musics.iduser = public.user.iduser'+ searchOptions +' ORDER BY idmusic DESC LIMIT $1 OFFSET $2;';
-    config.pool.query(query, sqlValues,  (error, result) => {
+    const query = 'SELECT musics.*, public.user.twitchname FROM musics INNER JOIN public.user ON musics.iduser = public.user.iduser ORDER BY idmusic DESC LIMIT $1 OFFSET $2;';
+    config.pool.query(query, [LIMIT, MIN_ID],  (error, result) => {
         if (error) {
             console.log('Error occurred:', error);
             res.status(400).send('An error occurred while retrieving data from the database.');
@@ -39,6 +35,11 @@ router.get('/GET/:page', config.twitch.validateJWT, (req, res) => {
 router.post('/INSERT', config.twitch.validateJWT, async (req, res) => {
     // Récupérer les données du corps de la requête
     const { url } = req.body;
+    if(req.user === undefined) {
+        res.status(400).send('Not Twitch connected');
+        return;
+    }
+    
     const TWITCH_ID = req.user.id;
 
     if( ! req.twitch_informations.connected){

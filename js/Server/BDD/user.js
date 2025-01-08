@@ -18,10 +18,16 @@ router.post('/ADDUSER', config.twitch.validateJWT, (req, res) => {
    
     const query = "INSERT INTO public.user(twitchname, twitchid) SELECT $1, $2 WHERE NOT EXISTS ( SELECT iduser FROM public.user WHERE twitchId = $2);";
     config.pool.query(query, [PSEUDO, TWITCH_ID],  (error, result) => {
+        
         if (error) {
             res.status(400).send('Problème lors de l\'ajout de l\'utilisateur dans la base de données : Pseudo : '+ PSEUDO + 'TWITCH ID :' + TWITCH_ID);
-           
         } else {
+
+            if(result.rowCount === 0){// Utilisateur déjà présent dans l'appli donc pas besoin de refaire la ligne de dessous.
+                res.json(true);
+                return;
+            }  
+
             const queryPacks = "INSERT INTO public.packs(iduser, nbrpacks) VALUES((select iduser from public.user where twitchid = $1), 0);";
             config.pool.query(queryPacks, [TWITCH_ID],  (errorPacks, resultPacks) => {
                 if (error) {

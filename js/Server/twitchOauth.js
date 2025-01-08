@@ -106,8 +106,6 @@ router.get('/callback', async (req, res) => {
         const USER_VALUES = await getUserInfo(access_token);
 
         //Sauver les données de ce user
-        // let result = user.addUser(USER_VALUES.data[0].display_name, USER_VALUES.data[0].id);
-        // console.log(result);
         axios.post("http://localhost:3000/user/ADDUSER", {
             name: USER_VALUES.data[0].display_name,
             id: USER_VALUES.data[0].id

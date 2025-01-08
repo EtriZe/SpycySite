@@ -1,4 +1,13 @@
-function setNewHTML(htmlFileName, div) {
+let limitedAccessPages = ["cardsCollection","cardsOpening","musicsProposal"];
+
+async function setNewHTML(htmlFileName, div) {
+    
+    if(limitedAccessPages.includes(htmlFileName)){
+        if( ! await canAccessPage()){
+            htmlFileName = "notConnected";
+        }
+    }
+
     fetch("html/" + htmlFileName + ".html").then(response => {
         if (!response.ok) throw new Error('Erreur lors du chargement du fichier');
         return response.text();

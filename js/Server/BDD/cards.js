@@ -10,7 +10,13 @@ dotenv.config();
 
 //Récupère le nombre de paquets de cartes ouvrable
 router.get('/GETNBRPACKS',config.twitch.validateJWT, (req, res) => {
-    const TWITCH_ID =  req.user.id;
+    
+    if(req.user === undefined) {
+        res.status(400).send('Not Twitch connected');
+        return;
+    }
+
+    const TWITCH_ID = req.user.id;
 
     //Récupérer le nombre de pack
     const query = "SELECT nbrpacks FROM public.packs WHERE iduser = (SELECT iduser FROM public.user WHERE twitchid = $1)";
@@ -26,7 +32,13 @@ router.get('/GETNBRPACKS',config.twitch.validateJWT, (req, res) => {
 
 //Récupère le nombre de paquets de cartes ouvrable
 router.get('/GETMYCARDS',config.twitch.validateJWT, (req, res) => {
-    const TWITCH_ID =  req.user.id;
+    
+    if(req.user === undefined) {
+        res.status(400).send('Not Twitch connected');
+        return;
+    }
+
+    const TWITCH_ID = req.user.id;
 
     //Récupérer le nombre de pack
     const query = "SELECT dessin FROM collection INNER JOIN cartedessin ON collection.idcarte = cartedessin.idcarte and collection.idcarteversion = cartedessin.idcarteversion WHERE collection.iduser = (SELECT iduser FROM public.user WHERE twitchid = $1)";
@@ -42,6 +54,12 @@ router.get('/GETMYCARDS',config.twitch.validateJWT, (req, res) => {
 
 //Récupère le nombre de paquets de cartes ouvrable
 router.get('/GETRANDOMCARDS', config.twitch.validateJWT, async (req, res) => {
+    
+    if(req.user === undefined) {
+        res.status(400).send('Not Twitch connected');
+        return;
+    }
+
     const TWITCH_ID = req.user.id;
 
     try {
