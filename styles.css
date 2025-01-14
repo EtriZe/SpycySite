@@ -89,6 +89,7 @@ body {
     flex-direction: column;
     align-items: center;
     overflow: hidden !important;
+    padding-bottom: 4%;
 }
 
 .search-container {
@@ -432,9 +433,8 @@ iframe {
 
 .cardsContainer {
     display: grid;
-    /* flex-wrap: wrap; */
     overflow: auto;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto;
     margin-top: 9vh;
     height: auto;
     width: 100%;
@@ -443,7 +443,7 @@ iframe {
     overflow: scroll;
     overflow-y: auto;
     overflow-x: auto;
-    /* column-gap: 5%; */
+    row-gap: 2vh;
 }
 
 .cardContainer {
@@ -451,19 +451,21 @@ iframe {
     grid-template-rows: 35vh 2vh;
     margin-left: 6vh;
     margin-right: 6vh;
+    padding-bottom: 2vh;
 }
 
 .cardVersions {
-    display: grid;
+    display: flex;
     flex-direction: row;
     justify-content: center;
-    grid-template-columns: auto auto auto auto;
-    height: 100%;
-    display: none;
+    height: fit-content;
+    gap: 9%;
+    padding-top: 3px;
 }
 
 .cardVersion {
-    height: 3vh;
+    height: 6vh;
+    /* position: absolute; */
 }
 
 .unavailable {
@@ -663,4 +665,50 @@ div:has(> .mainCard) {
 
 .template{
     display:none;
+}
+
+.livestream_spycy{
+    width: 1000px;
+    height: 563px;
+    position: absolute;
+    right: 50vh;
+    top: 21vh;
+}
+
+#green{
+    background-color: #08c055;
+}
+
+#yellow{
+    background-color: #d8db24;
+    color: black;
+}
+
+#red{
+    background-color: #ce1111;
+}
+
+#black{
+    background-color: #000000;
+}
+
+
+.cardVersionCount{
+    width: 4vh;
+    border-radius: 0.3vh;
+    color: white;
+    text-align: center;
+}
+
+.livechat_spycy{
+    width: 300px;
+    height: 563px;
+    position: absolute;
+    right: 13vh;
+    top: 21vh;
+}
+
+.mainTitleHome{
+    position:absolute;
+    top: 8vh;
 }

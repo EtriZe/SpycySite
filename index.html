@@ -75,7 +75,13 @@
             <div class="col-12 col-md-10 col-right">
                 <div class="h-100 d-flex justify-content-center align-items-center">
                     <div class="container-fluid mainScreenContainer">
-                        <h1 style="color:white">Bienvenue sur le site de TooSpycy</h1>
+                        <h1 class="mainTitleHome" style="color:white">Bienvenue sur le site de TooSpycy</h1>
+                        <iframe src="https://player.twitch.tv/?channel=toospycy&parent=localhost"
+                            class="livestream_spycy" allowfullscreen frameborder="0">
+                        </iframe>
+                        <iframe src="https://www.twitch.tv/embed/toospycy/chat?parent=localhost" class="livechat_spycy" height="500" width="350"
+                            frameborder="0">
+                        </iframe>
                     </div>
                 </div>
             </div>
@@ -172,19 +178,19 @@
             if (!sousMenu.classList.contains("hideLeft")) sousMenu.classList.add("hideLeft");
         })
 
-        document.querySelectorAll(".btnFlotantContainer").forEach(function (btnFlotantContainer){
-            if(clickedContainer != btnFlotantContainer){
-                if ( ! btnFlotantContainer.classList.contains("hide")){
-                btnFlotantContainer.classList.add("hide");
-                btnFlotantContainer.querySelectorAll("button").forEach(btnFlotant =>{
-                    btnFlotant.classList.remove("animate");
-                })
-            } 
+        document.querySelectorAll(".btnFlotantContainer").forEach(function (btnFlotantContainer) {
+            if (clickedContainer != btnFlotantContainer) {
+                if (!btnFlotantContainer.classList.contains("hide")) {
+                    btnFlotantContainer.classList.add("hide");
+                    btnFlotantContainer.querySelectorAll("button").forEach(btnFlotant => {
+                        btnFlotant.classList.remove("animate");
+                    })
+                }
             }
         })
     }
 
-    
+
 </script>
 
 </html>

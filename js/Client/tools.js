@@ -60,3 +60,18 @@ function closeAllTabs() {
         sousmenu.style.display = "none";
     });
 }
+
+function getTemplate(htmlFileName){
+
+    let result = fetch("html/" + htmlFileName + ".html").then(response => {
+        if (!response.ok) throw new Error('Erreur lors du chargement du fichier');
+        return response.text();
+    }).then(content => {
+        return content;
+    }).catch(error => {
+        console.error('Erreur:', error, "File Name : ", htmlFileName);
+        return false;
+    });
+
+    return result;
+}

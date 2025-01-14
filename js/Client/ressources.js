@@ -217,22 +217,43 @@ function loadArtGalerie() {
 }
 
 async function loadCardsCollection(){
-    let htmlCollection = document.querySelector(".template .cardContainer").innerHTML;
-    console.log(htmlCollection);
-
+    let htmlTemplate = await getTemplate("cardCollectionTemplate");
     //Remplissage de cards
     const MY_CARDS = await getMyCollection();
+
     MY_CARDS.forEach(function(card){
-        let newHtml = htmlCollection.replace("cardFaceREPLACE", card.dessin);
+        //Valeurs de la carte dans la BDD
+        let idCarte = card.idcarte;
+        let idCarteVersion = card.idcarteversion;
+        let cartedessin = card.dessin;
+        let nbOccurrences = card.nboccurrences;
+
+        //On utilise la première URL comme image représentant la carte 
+        let newHtml = htmlTemplate.replace("cardFaceREPLACE", cartedessin);
 
         let newCardContainer = document.createElement("div");
         newCardContainer.classList.add("cardContainer");
         newCardContainer.innerHTML = newHtml;
+        newCardContainer.querySelector(".cardVersions").setAttribute("card-id", idCarte);
+
 
         let cardsContainer = document.querySelector(".cardsContainer");
-        cardsContainer.appendChild(newCardContainer);
+        let searchCardVersion = cardsContainer.querySelector('[card-id="'+idCarte+'"]');
+        
+
+        if(searchCardVersion === null){
+            setCardVersionsDOM(newCardContainer, card);
+            cardsContainer.appendChild(newCardContainer);
+        }else{
+            //Si idcarte déjà présent : 
+            setCardVersionsDOM(searchCardVersion, card);
+        }   
+
+        
     });
 
+
+    // Affichage de la carte au meilleur format quand on clique -----------
     let cards = document.querySelectorAll(".cardContainer");
     let cardFullScreen = document.querySelector(".cardFullScreen");
 
@@ -246,6 +267,18 @@ async function loadCardsCollection(){
         });
     }
 
+}
+
+function setCardVersionsDOM(dom, cardInfo){
+    let cardVersCount = dom.querySelector('[card-vers="'+cardInfo.idcarteversion+'"]');
+    cardVersCount.innerHTML = cardInfo.nboccurrences;
+    cardVersCount.setAttribute("card-url", cardInfo.dessin);
+    cardVersCount.classList.remove("hide");
+    cardVersCount.addEventListener("click", function(e){
+        let cardVersionUrl = e.target.getAttribute("card-url");
+        let mainCard = e.target.closest(".cardContainer").querySelector(".mainCard");
+        mainCard.src = cardVersionUrl;
+    })
 }
 
 async function loadCardsOpening(){

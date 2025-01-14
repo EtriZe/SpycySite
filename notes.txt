@@ -1,2 +1,5 @@
 Launch : node script.js
 https://codepen.io/t_afif/pen/PoedrGY
+
+Pour vérifier la sécurité du site
+https://securityheaders.com/

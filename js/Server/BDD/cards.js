@@ -39,10 +39,26 @@ router.get('/GETMYCARDS',config.twitch.validateJWT, (req, res) => {
     }
 
     const TWITCH_ID = req.user.id;
-
-    //Récupérer le nombre de pack
-    const query = "SELECT dessin FROM collection INNER JOIN cartedessin ON collection.idcarte = cartedessin.idcarte and collection.idcarteversion = cartedessin.idcarteversion WHERE collection.iduser = (SELECT iduser FROM public.user WHERE twitchid = $1)";
-    config.pool.query(query, [TWITCH_ID],  (error, result) => {
+    let sql = "SELECT ";
+    sql += "collection.idcarte, ";
+    sql += "collection.idcarteversion, ";
+    sql += "cartedessin.dessin, ";
+    sql += "COUNT(*) AS nbOccurrences ";
+    sql += "FROM collection ";
+    sql += "LEFT JOIN cartedessin ";
+    sql += "ON collection.idcarte = cartedessin.idcarte ";
+    sql += "AND collection.idcarteversion = cartedessin.idcarteversion ";
+    sql += "WHERE collection.iduser = (SELECT iduser FROM public.user WHERE twitchid = $1) "
+    sql += "AND cartedessin.dessin is not null ";
+    sql += "GROUP BY ";
+    sql +=     "collection.idcarte,";
+    sql +=     "collection.idcarteversion,";
+    sql +=     "cartedessin.dessin ";
+    sql += "ORDER BY ";
+    sql += "collection.idcarte ";
+    sql += ",collection.idcarteversion desc; ";
+    
+    config.pool.query(sql, [TWITCH_ID],  (error, result) => {
         if (error) {
             res.statusMessage = 'Erreur lors de la récupération du nombre de paquets';        
             res.status(400).end();
@@ -95,8 +111,6 @@ router.get('/GETRANDOMCARDS', config.twitch.validateJWT, async (req, res) => {
             const designResult = await config.pool.query(queryDesign, [selectedCards[i], selectedVersions[i]]);
             cardsDesignResult.push(designResult.rows);
         }
-
-
 
         // Envoyer la réponse combinée
         res.json(cardsDesignResult);
