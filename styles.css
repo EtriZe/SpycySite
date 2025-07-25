@@ -42,6 +42,7 @@ body {
     justify-content: end;
     /* height: fit-content; */
     gap: 3vh;
+    padding-top: 3vh;
 }
 
 .btnIcone {
@@ -733,9 +734,16 @@ div:has(> .mainCard) {
 }
 
 .menuBtns > .active {
-    background-color: white;
+    background-color: #fa69b5a6;
+    border: 3px solid white;
 }
 
 .menuBtns > .active > span {
-    color :black;
+    /* color :black; */
+}
+
+.groupMusic {/* padding-top: 4vh; */}
+
+.groupMusic img {
+    height: 7vw;
 }
