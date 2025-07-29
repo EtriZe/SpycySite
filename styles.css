@@ -47,6 +47,7 @@ body {
 
 .btnIcone {
     height: 12vw;
+    /* box-shadow: 8px 19px 14px 0px #000000; */
 }
 
 .mainBtnPanel .btnIcone {
@@ -91,6 +92,7 @@ body {
     align-items: center;
     overflow: hidden !important;
     padding-bottom: 4%;
+    gap: 0vh;
 }
 
 .search-container {
@@ -159,6 +161,7 @@ body {
     border-bottom-right-radius: 15px;
     background-color: #333;
     padding: 1dvh;
+    box-shadow: 4px 8px 20px 0px #000000;
 }
 
 #apercu {
@@ -669,11 +672,11 @@ div:has(> .mainCard) {
 }
 
 .livestream_spycy{
-    width: 1000px;
-    height: 563px;
-    position: absolute;
-    right: 50vh;
-    top: 21vh;
+    /* width: 1000px; */
+    /* height: 563px; */
+    /* position: absolute; */
+    /* right: 50vh; */
+    /* top: 21vh; */
 }
 
 #green{
@@ -702,28 +705,29 @@ div:has(> .mainCard) {
 }
 
 .livechat_spycy{
-    width: 300px;
-    height: 563px;
-    position: absolute;
-    right: 13vh;
-    top: 21vh;
+    /* width: 300px; */
+    /* height: 563px; */
+    /* position: absolute; */
+    /* right: 13vh; */
+    /* top: 21vh; */
+    width: 29vw;
 }
 
 .mainTitleHome{
-    position:absolute;
-    top: 8vh;
+    /* position:absolute; */
+    /* top: 8vh; */
 }
 
 .logoCategorie > img {filter: opacity(0.3);}
 
 .logoCategorie {position: absolute;}
 
-.menuBtns {z-index: 1;display: flex;flex-direction: column;width: 100%;/* background-color: #5f5f5f; */}
+.menuBtns {z-index: 1;display: flex;flex-direction: column;width: 100%;/* background-color: #5f5f5f; */gap: 1vh;}
 
 .menuBtns > button {
     background-color: #83838345;
     border-radius: 1vh;
-    font-size: 3vh;
+    font-size: 126%;
     padding: 0.9vh;
     /* filter: opacity(0.5); */
 }
@@ -746,4 +750,29 @@ div:has(> .mainCard) {
 
 .groupMusic img {
     height: 7vw;
+}
+
+
+.streamAccueil {
+    width: auto;
+    display: flex;
+    height: 75vh;
+    column-gap: 4%;
+    justify-items: center;
+    width: 75vw;
+    padding: 0 !important;
+    margin-top: 4vh;
+}
+
+.reseaux{
+    position: absolute;
+    bottom: 3dvh;
+    display: flex;
+    flex-direction: row;
+    gap: 9vw;
+}
+
+.reseaux > img {
+    width: 8vw;
+    cursor:pointer;
 }
